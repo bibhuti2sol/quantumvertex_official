@@ -1,0 +1,13 @@
+/* Removed styles related to the 'N' button */
+
+/* Ensure consistent background color using CSS variables */
+:root {
+  --bg-primary: #f5f5dc; /* Cream background color */
+}
+
+html, body {
+  background: var(--bg-primary) !important; /* Use CSS variable for background */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
