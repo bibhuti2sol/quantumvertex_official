@@ -14,7 +14,7 @@ const achievements = [
     client: "Jogamaya Motors",
     description:
       "Successfully delivered a comprehensive automobile servicing solution that streamlines service operations and enhances customer experience — from appointment booking to real-time service tracking.",
-    link: "https://jogamayamotors.great-site.net/",
+    link: "https://www.jogamaya.co.in/",
     linkLabel: "Visit Jogamaya Motors",
     icon: "WrenchScrewdriverIcon",
     accentColor: "#22c55e",
