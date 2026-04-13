@@ -36,7 +36,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-5">
               <div className="w-9 h-9 rounded-xl overflow-hidden">
                 <AppImage
-                  src="https://www.qvs.co.in/assets/logo-NHRZjvWU.png"
+                  src="/assets/images/QVS-1772610519791.jpeg"
                   alt="Quantum Vertex Solutions logo"
                   width={36}
                   height={36}

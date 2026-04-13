@@ -45,6 +45,12 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         {/* Ensure no debug overlays or third-party components are rendering the 'N' button */}
         {children}
+        {/* Footer Section */}
+        <footer className="footer">
+          <div className="footer-logo">
+            <img src="/logo.png" alt="Quantum Vertex Logo" className="footer-logo-img" />
+          </div>
+        </footer>
       </body>
     </html>
   );
