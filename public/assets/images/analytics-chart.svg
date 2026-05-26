@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="420" viewBox="0 0 700 420">
+  <rect width="100%" height="100%" fill="#fbfdff" rx="8"/>
+  <g font-family="DM Sans, Arial, sans-serif" fill="#0f172a">
+    <text x="24" y="44" font-size="22" font-weight="700">Analytics & Charts</text>
+    <text x="24" y="70" font-size="13" fill="#6b7280">Visual BI — placeholder</text>
+  </g>
+  <g transform="translate(24,100)">
+    <rect x="0" y="0" width="420" height="260" rx="8" fill="#ffffff" stroke="#e6eef6"/>
+    <g transform="translate(24,24)">
+      <rect x="0" y="120" width="36" height="80" rx="4" fill="#06b6d4"/>
+      <rect x="56" y="80" width="36" height="120" rx="4" fill="#60a5fa"/>
+      <rect x="112" y="40" width="36" height="160" rx="4" fill="#10b981"/>
+      <rect x="168" y="20" width="36" height="180" rx="4" fill="#f59e0b"/>
+      <rect x="224" y="70" width="36" height="130" rx="4" fill="#fb7185"/>
+    </g>
+  </g>
+</svg>

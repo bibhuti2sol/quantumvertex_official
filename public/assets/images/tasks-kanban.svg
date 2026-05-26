@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <rect width="100%" height="100%" fill="#ffffff" rx="8"/>
+  <g font-family="DM Sans, Arial, sans-serif" fill="#0f172a">
+    <text x="40" y="50" font-size="28" font-weight="700">Tasks & Kanban</text>
+    <text x="40" y="78" font-size="14" fill="#6b7280">Create tasks and move across columns — placeholder</text>
+  </g>
+  <g transform="translate(40,110)">
+    <rect x="0" y="0" width="260" height="200" rx="8" fill="#f8fafc" stroke="#e6eef6" />
+    <rect x="300" y="0" width="260" height="200" rx="8" fill="#f8fafc" stroke="#e6eef6" />
+    <rect x="600" y="0" width="260" height="200" rx="8" fill="#f8fafc" stroke="#e6eef6" />
+    <rect x="900" y="0" width="260" height="200" rx="8" fill="#f8fafc" stroke="#e6eef6" />
+    <g font-size="13" fill="#374151">
+      <text x="20" y="24">TODO</text>
+      <text x="320" y="24">IN PROGRESS</text>
+      <text x="620" y="24">REVIEW</text>
+      <text x="920" y="24">DONE</text>
+    </g>
+    <rect x="16" y="46" width="220" height="28" rx="6" fill="#eef2ff"/>
+    <rect x="316" y="46" width="220" height="28" rx="6" fill="#ecfeff"/>
+    <rect x="616" y="46" width="220" height="28" rx="6" fill="#fff7ed"/>
+    <rect x="916" y="46" width="220" height="28" rx="6" fill="#f0fdf4"/>
+  </g>
+</svg>

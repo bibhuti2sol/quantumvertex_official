@@ -1,11 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 import AppImage from "@/components/ui/AppImage";
 import Icon from "@/components/ui/AppIcon";
 
 export default function Header() {
+  const pathname = usePathname() || "/";
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -14,8 +18,8 @@ export default function Header() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = ["home", "about", "services", "achievements", "testimonials", "partners", "founders", "contact"];
-      for (const id of sections.reverse()) {
+      const sections = ["home", "about", "services", "achievements", "testimonials", "founders", "contact"];
+      for (const id of sections.slice().reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 100) {
           setActiveSection(id);
@@ -24,71 +28,94 @@ export default function Header() {
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
+    // run once to set initial state
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Achievements", href: "#achievements" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Partners", href: "#partners" },
-  { label: "Founders", href: "#founders" },
-  { label: "Contact Us", href: "#contact" }];
+    { label: "Home", href: "#home" },
+    { label: "About", href: "#about" },
+    { label: "Services", href: "#services" },
+    { label: "Achievements", href: "#achievements" },
+    { label: "Testimonials", href: "#testimonials" },
+    { label: "Founders", href: "#founders" },
+    { label: "Contact Us", href: "#contact" },
+    { label: "Product", href: "/product" },
+  ];
 
-
+  // Handle navigation for hash links and path links.
+  // If a hash is clicked while not on the home route, navigate to /home-page#id.
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    if (href.startsWith("#")) {
+      const id = href.replace("#", "");
+      const homeRoutes = ["/home-page", "/"]; // update if your landing route differs
+      const onHome = homeRoutes.includes(pathname);
+
+      if (onHome) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          try { window.history.replaceState(null, '', href); } catch (e) {}
+          return;
+        }
+        // Element not found on this page: still navigate to home-page with hash
+        router.push(`/home-page${href}`);
+        return;
+      }
+
+      // Not on home -> navigate to home-page with the hash
+      router.push(`/home-page${href}`);
+      return;
     }
+
+    // Non-hash path (e.g., /product)
+    router.push(href);
   };
+
+  const linkClass = (href: string) =>
+    pathname === href ? "text-cyan-300 font-medium text-sm" : "text-sm text-white hover:text-cyan-300";
 
   return (
     <>
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ?
-          "rgba(8, 12, 24, 0.92)" :
-          "transparent",
+          background: scrolled ? "rgba(8, 12, 24, 0.92)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ?
-          "1px solid rgba(255,255,255,0.07)" :
-          "1px solid transparent"
-        }}>
-        
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "1px solid transparent",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
           <button
             onClick={() => handleNavClick("#home")}
             className="flex items-center gap-3 group"
-            aria-label="Quantum Vertex Solutions - Go to home">
-            
+            aria-label="Quantum Vertex Solutions - Go to home"
+          >
             <div
               className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0"
               style={{
                 border: "2px solid rgba(0, 229, 255, 0.7)",
                 boxShadow: "0 0 10px rgba(0, 229, 255, 0.35), 0 0 20px rgba(0, 229, 255, 0.15)",
-                background: "#ffffff"
-              }}>
-              
+                background: "#ffffff",
+              }}
+            >
               <AppImage
                 src="/assets/images/QVS-1772610519791.jpeg"
                 alt="Quantum Vertex Solutions logo"
                 width={80}
                 height={80}
-                className="w-full h-full object-contain" />
-              
+                className="w-full h-full object-contain"
+              />
             </div>
             <span
               className="font-jakarta font-800 text-[15px] tracking-tight"
-              style={{ color: "var(--text-primary)", fontWeight: 800 }}>
-              
+              style={{ color: "var(--text-primary)", fontWeight: 800 }}
+            >
               Quantum<span style={{ color: "var(--accent-cyan)" }}>Vertex</span>
             </span>
           </button>
@@ -97,11 +124,43 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-6 ml-12">
             {navItems.map((item) => {
               const id = item.href.replace("#", "");
-              const isActive = activeSection === id;
+              const isHash = item.href.startsWith("#");
+              const isActive = isHash ? activeSection === id : pathname === item.href;
+
+              if (isHash) {
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNavClick(item.href)}
+                    className="nav-link relative"
+                    style={{
+                      color: isActive ? "var(--accent-cyan)" : "var(--text-secondary)",
+                      fontWeight: isActive ? 600 : 500,
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      fontSize: "1rem",
+                      fontFamily: "DM Sans, sans-serif",
+                      padding: "8px 16px",
+                    }}
+                  >
+                    {item.label}
+                    {isActive && (
+                      <span
+                        className="absolute bottom-[-4px] left-4 right-4 h-[2px] rounded-full"
+                        style={{ background: "var(--accent-cyan)" }}
+                      />
+                    )}
+                  </button>
+                );
+              }
+
+              // pathname links (like /product)
               return (
-                <button
+                <Link
                   key={item.label}
-                  onClick={() => handleNavClick(item.href)}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
                   className="nav-link relative"
                   style={{
                     color: isActive ? "var(--accent-cyan)" : "var(--text-secondary)",
@@ -111,18 +170,19 @@ export default function Header() {
                     cursor: "pointer",
                     fontSize: "1rem",
                     fontFamily: "DM Sans, sans-serif",
-                    padding: "8px 16px"
-                  }}>
-                  
+                    padding: "8px 16px",
+                    textDecoration: "none",
+                  }}
+                >
                   {item.label}
-                  {isActive &&
-                  <span
-                    className="absolute bottom-[-4px] left-4 right-4 h-[2px] rounded-full"
-                    style={{ background: "var(--accent-cyan)" }} />
-
-                  }
-                </button>);
-
+                  {isActive && (
+                    <span
+                      className="absolute bottom-[-4px] left-4 right-4 h-[2px] rounded-full"
+                      style={{ background: "var(--accent-cyan)" }}
+                    />
+                  )}
+                </Link>
+              );
             })}
           </nav>
 
@@ -131,8 +191,8 @@ export default function Header() {
             <button
               onClick={() => handleNavClick("#contact")}
               className="btn-primary"
-              style={{ padding: "10px 20px", fontSize: "1rem" }}>
-              
+              style={{ padding: "10px 20px", fontSize: "1rem" }}
+            >
               <span>Get Started</span>
               <Icon name="ArrowRightIcon" size={18} />
             </button>
@@ -143,52 +203,68 @@ export default function Header() {
             className="md:hidden p-2 rounded-lg"
             style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle mobile menu">
-            
-            <Icon
-              name={mobileOpen ? "XMarkIcon" : "Bars3Icon"}
-              size={24}
-              className="text-white" />
-            
+            aria-label="Toggle mobile menu"
+          >
+            <Icon name={mobileOpen ? "XMarkIcon" : "Bars3Icon"} size={24} className="text-white" />
           </button>
         </div>
       </header>
 
       {/* Mobile Menu */}
-      {mobileOpen &&
-      <div
-        className="fixed inset-0 z-40 md:hidden flex flex-col"
-        style={{ background: "rgba(8,12,24,0.98)", backdropFilter: "blur(20px)" }}>
-        
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 md:hidden flex flex-col" style={{ background: "rgba(8,12,24,0.98)", backdropFilter: "blur(20px)" }}>
           <div className="h-20" />
           <nav className="flex flex-col items-center justify-center flex-1 gap-8 px-6">
-            {navItems.map((item, i) =>
-          <button
-            key={item.label}
-            onClick={() => handleNavClick(item.href)}
-            className="text-2xl font-jakarta font-700 transition-colors duration-200"
-            style={{
-              color: "var(--text-primary)",
-              fontWeight: 700,
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              animationDelay: `${i * 0.08}s`
-            }}>
-            
-                {item.label}
-              </button>
-          )}
-            <button
-            onClick={() => handleNavClick("#contact")}
-            className="btn-primary mt-4">
-            
+            {navItems.map((item, i) => {
+              const isHash = item.href.startsWith("#");
+              if (isHash) {
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNavClick(item.href)}
+                    className="text-2xl font-jakarta font-700 transition-colors duration-200"
+                    style={{
+                      color: "var(--text-primary)",
+                      fontWeight: 700,
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      animationDelay: `${i * 0.08}s`,
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="text-2xl font-jakarta font-700 transition-colors duration-200"
+                  style={{
+                    color: "var(--text-primary)",
+                    fontWeight: 700,
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    animationDelay: `${i * 0.08}s`,
+                    textDecoration: "none",
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+
+            <button onClick={() => handleNavClick("#contact")} className="btn-primary mt-4">
               <span>Get Started</span>
               <Icon name="ArrowRightIcon" size={16} />
             </button>
           </nav>
         </div>
-      }
-    </>);
-
+      )}
+    </>
+  );
 }

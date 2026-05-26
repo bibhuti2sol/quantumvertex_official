@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+  <rect width="100%" height="100%" fill="#fbfdff" rx="12"/>
+  <g font-family="DM Sans, Arial, sans-serif" fill="#0f172a">
+    <text x="60" y="120" font-size="36" font-weight="700">About — NextGenTask Overview</text>
+    <text x="60" y="160" font-size="16" fill="#6b7280">Enterprise-grade project &amp; task management — placeholder</text>
+  </g>
+  <g transform="translate(60,220)">
+    <rect x="0" y="0" width="420" height="220" rx="8" fill="#ecfeff" stroke="#cff8f4"/>
+    <rect x="460" y="0" width="320" height="100" rx="8" fill="#eef2ff" stroke="#dbeafe"/>
+    <rect x="460" y="120" width="320" height="100" rx="8" fill="#fff7ed" stroke="#ffedd5"/>
+  </g>
+</svg>
