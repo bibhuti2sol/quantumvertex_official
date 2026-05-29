@@ -71,7 +71,7 @@ export default function ProductPage() {
                 </p>
               </div>
                <p style={{ color: 'var(--muted)' }}>
-                 Product page: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer">https://nextgentask.co.in</a>
+                 Product page: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer">https://www.nextgentask.co.in</a>
                </p>
              </div>
            </header>
@@ -397,7 +397,7 @@ export default function ProductPage() {
           </article>
 
           <footer style={{ marginTop: '2rem', color: 'var(--muted)' }}>
-            <p>For more details visit: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer">https://nextgentask.co.in</a></p>
+            <p>For more details visit: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer">https://www.nextgentask.co.in</a></p>
           </footer>
         </div>
       </div>
