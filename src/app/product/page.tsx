@@ -106,7 +106,7 @@ export default function ProductPage() {
                   NextGen Task Manager Manual
                 </h1>
                 <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
-                  A comprehensive, step-by-step guide on how to navigate, operate, and utilise all key functional modules within the application.
+                  A comprehensive step-by-step guide to navigating, operating, and effectively utilizing all key functional modules of the application.
                 </p>
               </div>
               <p style={{ color: 'var(--muted)', margin: "8px 0 0 0", fontSize: "0.9rem" }}>
