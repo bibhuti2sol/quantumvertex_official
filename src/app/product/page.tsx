@@ -106,11 +106,11 @@ export default function ProductPage() {
                   NextGen Task Manager Manual
                 </h1>
                 <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
-                  A comprehensive, step-by-step guidance on how to navigate, operate, and utilize all key functional modules within the application.
+                  A comprehensive, step-by-step guide on how to navigate, operate, and utilise all key functional modules within the application.
                 </p>
               </div>
               <p style={{ color: 'var(--muted)', margin: "8px 0 0 0", fontSize: "0.9rem" }}>
-                Official Website: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://nextgentask.co.in</a>
+                Official Website: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://nextgentask.co.in</a>
               </p>
             </div>
           </header>
@@ -509,7 +509,7 @@ export default function ProductPage() {
           </article>
 
           <footer style={{ marginTop: '3rem', borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: "20px", color: 'var(--muted)' }}>
-            <p>For more details visit: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://nextgentask.co.in</a></p>
+            <p>For more details visit: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://nextgentask.co.in</a></p>
           </footer>
         </div>
       </div>
