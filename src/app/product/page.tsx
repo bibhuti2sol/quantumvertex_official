@@ -110,7 +110,7 @@ export default function ProductPage() {
                 </p>
               </div>
               <p style={{ color: 'var(--muted)', margin: "8px 0 0 0", fontSize: "0.9rem" }}>
-                Official Website: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://nextgentask.co.in</a>
+                Official Website: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://www.nextgentask.co.in</a>
               </p>
             </div>
           </header>
@@ -509,7 +509,7 @@ export default function ProductPage() {
           </article>
 
           <footer style={{ marginTop: '3rem', borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: "20px", color: 'var(--muted)' }}>
-            <p>For more details visit: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://nextgentask.co.in</a></p>
+            <p>For more details visit: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://www.nextgentask.co.in</a></p>
           </footer>
         </div>
       </div>
