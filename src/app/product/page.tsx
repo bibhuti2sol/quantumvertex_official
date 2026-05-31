@@ -5,491 +5,511 @@ import ActionableFlow from "../../components/ActionableFlow";
 
 export default function ProductPage() {
   return (
-    <main style={{ background: "linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2d1b4e 100%)", minHeight: "100vh", paddingTop: "5.5rem" }}>
-      <div className="max-w-7xl mx-auto px-6 py-12">
+    <main style={{ position: "relative", overflow: "hidden", background: "var(--bg-primary)", minHeight: "100vh", paddingTop: "7.5rem" }}>
+      {/* Background orbs */}
+      <div
+        className="orb orb-cyan absolute"
+        style={{ width: "600px", height: "600px", top: "-100px", left: "-150px", opacity: 0.4 }} />
+      <div
+        className="orb orb-violet absolute"
+        style={{ width: "500px", height: "500px", top: "500px", right: "-100px", opacity: 0.35 }} />
+      <div
+        className="orb orb-amber absolute"
+        style={{ width: "400px", height: "400px", bottom: "150px", left: "5%", opacity: 0.2 }} />
+
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+          zIndex: 0
+        }} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-12 relative z-10">
         {/* Theme + prose styles */}
         <style dangerouslySetInnerHTML={{ __html: `
           :root{
-            --accent-cyan:#06b6d4;
-            --text-primary:#ffffff;
-            --text-secondary:#cbd5e1;
-            --muted:#94a3b8;
-            --card-bg:#1a2332;
+            --accent-cyan:#00D4FF;
+            --text-primary:#F0F4FF;
+            --text-secondary:#94A3B8;
+            --muted:#4B5E7A;
+            --card-bg:rgba(17, 24, 39, 0.7);
           }
           .prose-container{ max-width:100%; margin:0 auto; color:var(--text-secondary); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.8 }
-          .prose-container h1{ color:var(--text-primary); font-size:2.25rem; margin-bottom:0.5rem }
-          .prose-container h2{ color:var(--text-primary); font-size:1.25rem; margin-top:1.6rem; margin-bottom:0.6rem }
-          .prose-container h3{ color:var(--text-primary); font-size:1.05rem; margin-top:1rem; margin-bottom:0.5rem }
+          .prose-container h1{ color:var(--text-primary); font-size:2.25rem; margin-bottom:0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:800 }
+          .prose-container h2{ color:var(--text-primary); font-size:1.4rem; margin-top:1.6rem; margin-bottom:0.6rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:700 }
+          .prose-container h3{ color:var(--text-primary); font-size:1.1rem; margin-top:1rem; margin-bottom:0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:600 }
           .prose-container p{ margin-bottom:0.9rem }
-          .prose-container a{ color:var(--accent-cyan); text-decoration:underline }
-          .prose-container code{ background:rgba(15,23,42,0.04); padding:0.12rem 0.36rem; border-radius:6px }
-          .prose-container pre{ background:rgba(2,6,23,0.03); padding:0.75rem; border-radius:8px; overflow:auto }
-          h2,h3{ scroll-margin-top:5.5rem }
+          .prose-container a{ color:var(--accent-cyan); text-decoration:none; transition:opacity 0.2s }
+          .prose-container a:hover{ opacity:0.8; text-decoration:underline }
+          .prose-container code{ background:rgba(255,255,255,0.06); padding:0.12rem 0.36rem; border-radius:6px; color:var(--accent-cyan); font-size:0.9em }
+          .prose-container pre{ background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.07); padding:1rem; border-radius:12px; overflow:auto; color:var(--text-primary); font-family: monospace; font-size:0.9rem }
+          h2,h3{ scroll-margin-top:7.5rem }
           .toc-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem }
           .toc-grid ol{ margin:0 }
 
-          /* Action box styles (zig-zag) */
-          .action-box{ position:relative; background:var(--card-bg); border-radius:12px; padding:18px; margin-bottom:1.75rem; box-shadow:0 6px 18px rgba(16,24,40,0.04); transition: transform .15s ease, box-shadow .15s ease; width:100%; box-sizing:border-box }
+          /* Action box styles (zig-zag glassmorphism) */
+          .action-box{ position:relative; background:var(--card-bg); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:24px; margin-bottom:2rem; transition: all 0.3s ease-in-out; width:100%; box-sizing:border-box }
           .action-box[data-side="left"]{ margin-left:0; margin-right:auto; border-left:4px solid var(--accent-cyan); border-right:none; }
           .action-box[data-side="right"]{ margin-left:auto; margin-right:0; border-right:4px solid var(--accent-cyan); border-left:none; }
-          .action-box:hover{ transform:translateY(-6px); box-shadow:0 18px 50px rgba(16,24,40,0.06) }
-
-          .action-controls{ position:absolute; right:16px; top:16px; display:flex; gap:8px; align-items:center }
-          .action-box[data-side="right"] .action-controls{ left:16px; right:auto }
-          .action-controls a{ padding:6px 10px; border-radius:8px; background:#f3f4f6; color:var(--text-primary); font-weight:600; text-decoration:none; font-size:0.85rem }
-          .action-controls a.secondary{ background:transparent; border:1px solid rgba(15,23,42,0.04) }
+          .action-box:hover{ border-color:rgba(0, 212, 255, 0.35); transform:translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(0, 212, 255, 0.15); }
 
           /* Media/image responsive */
-          .section-media{ margin:12px 0 18px; display:flex; justify-content:center }
-          .section-media img{ max-width:100%; height:auto; border-radius:10px; box-shadow:0 8px 30px rgba(16,24,40,0.06) }
+          .section-media{ max-width:580px; margin:24px auto; display:flex; justify-content:center; border-radius:12px; overflow:hidden; border:1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) }
+          .section-media img{ width:100%; height:auto; display:block; transition:transform 0.4s ease-in-out }
+          .section-media img:hover{ transform:scale(1.03) }
 
           /* responsive: tablet and mobile */
           @media (max-width:1024px){ 
-            .action-box{ width:95%; padding:16px }
-            .prose-container h2{ font-size:1.1rem }
+            .action-box{ width:100%; padding:20px }
+            .prose-container h2{ font-size:1.25rem }
             .prose-container p{ font-size:0.95rem }
           }
           @media (max-width:768px){ 
             .toc-grid{ grid-template-columns:1fr } 
-            .prose-container{ padding:0 1rem } 
-            .action-controls{ position:static; margin-top:8px; justify-content:flex-start }
-            .action-box{ padding:12px; width:100%; margin-left:auto; margin-right:auto; border-left:4px solid var(--accent-cyan); border-right:none }
-            .action-box[data-side="right"]{ border-left:4px solid var(--accent-cyan); border-right:none; margin-left:auto; margin-right:auto }
+            .prose-container{ padding:0 } 
+            .action-box{ padding:16px; width:100%; margin-left:auto; margin-right:auto; border-left:4px solid var(--accent-cyan) !important; border-right:none !important }
+            .action-box[data-side="right"]{ border-left:4px solid var(--accent-cyan) !important; border-right:none !important; margin-left:auto; margin-right:auto }
             .prose-container h1{ font-size:1.75rem }
-            .prose-container h2{ font-size:1rem }
-            .prose-container h3{ font-size:0.95rem }
+            .prose-container h2{ font-size:1.15rem }
+            .prose-container h3{ font-size:1rem }
             .prose-container p{ font-size:0.9rem }
-            header.mb-6{ flex-direction:column; gap:1rem; align-items:flex-start }
+            header.mb-6{ flex-direction:column; gap:1.25rem; align-items:flex-start }
           }
           @media (max-width:480px){
-            .prose-container{ padding:0 0.75rem }
-            .action-box{ padding:10px; margin-bottom:1rem }
+            .action-box{ padding:12px; margin-bottom:1.25rem }
             .prose-container h1{ font-size:1.5rem }
-            .prose-container h2{ font-size:0.9rem }
-            .prose-container h3{ font-size:0.85rem }
+            .prose-container h2{ font-size:1.05rem }
+            .prose-container h3{ font-size:0.9rem }
             .prose-container p{ font-size:0.85rem; line-height:1.6 }
-            .action-controls a{ padding:4px 8px; font-size:0.75rem }
             table{ font-size:0.75rem }
           }
         ` }} />
 
         <div className="prose-container">
-          <header className="mb-6 flex items-center gap-4">
+          <header className="mb-8 flex items-center gap-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", paddingBottom: "24px" }}>
             <ProductLogo className="h-16 md:h-20 object-contain" />
             <div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <h2 style={{
+                <h1 style={{
                   margin: 0,
-                  fontSize: '1.6rem',
+                  fontSize: '2rem',
                   fontWeight: 900,
-                  lineHeight: 1.05,
-                  background: 'linear-gradient(90deg, #06b6d4, #7c3aed)',
+                  lineHeight: 1.1,
+                  background: 'linear-gradient(90deg, #00D4FF, #7C3AED)',
                   WebkitBackgroundClip: 'text',
                   color: 'transparent',
-                  letterSpacing: '-0.01em'
+                  letterSpacing: '-0.02em',
+                  fontFamily: 'Plus Jakarta Sans, sans-serif'
                 }}>
-                  Welcome to the NextGen Task Manager!
-                </h2>
-                <p style={{ margin: 0, color: 'var(--muted)', fontSize: '1.05rem' }}>
-                  This manual provides step-by-step guidance on how to navigate, operate, and utilize all key functional modules within the application.
+                  NextGen Task Manager Manual
+                </h1>
+                <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
+                  A comprehensive, step-by-step guidance on how to navigate, operate, and utilize all key functional modules within the application.
                 </p>
               </div>
-               <p style={{ color: 'var(--muted)' }}>
-                 Product page: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer">https://nextgentask.co.in</a>
-               </p>
-             </div>
-           </header>
+              <p style={{ color: 'var(--muted)', margin: "8px 0 0 0", fontSize: "0.9rem" }}>
+                Official Website: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://nextgentask.co.in</a>
+              </p>
+            </div>
+          </header>
 
           <section id="about" className="mb-6 action-box" data-side="left">
-            <div className="action-controls">
-              <a href="/product#about" className="">Open</a>
-              <a href="#about" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 10, height: 34, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>About NextGenTask Manager</span>
             </h2>
-            <p>NextGen Task Manager is a comprehensive, enterprise-grade project and task management solution built to streamline organizational workflows. By bridging the gap between high-level strategic planning and day-to-day execution, NextGen provides a centralized hub where teams can collaborate, track progress, and achieve their goals with maximum efficiency.</p>
+            <div style={{ marginTop: "16px" }}>
+              <p>NextGen Task Manager is a comprehensive, enterprise-grade project and task management solution built to streamline organizational workflows. By bridging the gap between high-level strategic planning and day-to-day execution, NextGen provides a centralized hub where teams can collaborate, track progress, and achieve their goals with maximum efficiency.</p>
 
-            <p>Whether you are managing complex multi-team projects, tracking individual assignments via a Kanban board, or analyzing organizational workload through visual analytics, NextGen Task Manager equips you with an intuitive, responsive, and highly customizable interface. Key capabilities include robust role-based access control, deep hierarchical organization (departments and teams), seamless cross-functional reporting, and dynamic task lifecycle tracking.</p>
+              <p>Whether you are managing complex multi-team projects, tracking individual assignments via a Kanban board, or analyzing organizational workload through visual analytics, NextGen Task Manager equips you with an intuitive, responsive, and highly customizable interface. Key capabilities include robust role-based access control, deep hierarchical organization (departments and teams), seamless cross-functional reporting, and dynamic task lifecycle tracking.</p>
 
-            <p>Designed for scalability and user satisfaction, NextGen Task Manager transforms chaos into structured, actionable intelligence—empowering your workforce to focus on what truly matters: delivering exceptional results.</p>
+              <p>Designed for scalability and user satisfaction, NextGen Task Manager transforms chaos into structured, actionable intelligence—empowering your workforce to focus on what truly matters: delivering exceptional results.</p>
 
-            <h3 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
-              <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
-              <span>Role-Based Access &amp; Privileges</span>
-            </h3>
-            <p>Security and operational hierarchy are core to NextGen Task Manager. The system employs strict Role-Based Access Control (RBAC) to ensure users only interact with data and features appropriate to their organizational standing. The three primary roles are:</p>
-            <ul>
-              <li><strong>Admin:</strong> The highest level of access. Admins have complete control over the system, including the ability to manage all users, oversee global organizational settings, assign roles, and access sensitive profile data (such as Date of Joining, Employee IDs, and Reporting chains). Admins can view, edit, and delete any project, task, or team across the entire organization.</li>
-              <li><strong>Manager:</strong> Designed for team leaders and department heads. Managers possess elevated privileges to oversee their specific projects and direct reports. They can create tasks, assign work to associates, view team workloads, and manage project milestones. While they have broad operational control within their domains, they cannot modify critical global system settings or sensitive employee profile configurations.</li>
-              <li><strong>Associate:</strong> The foundational role for individual contributors. Associates are granted focused access to execute their day-to-day responsibilities. They can view projects they are assigned to, update task statuses on the Kanban board, log activity, and manage their basic personal profile data. Associates are restricted from administrative actions such as altering deadlines or reassigning tasks to others.</li>
-            </ul>
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+                <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
+                <span>Role-Based Access &amp; Privileges</span>
+              </h3>
+              <p>Security and operational hierarchy are core to NextGen Task Manager. The system employs strict Role-Based Access Control (RBAC) to ensure users only interact with data and features appropriate to their organizational standing. The three primary roles are:</p>
+              <ul>
+                <li><strong>Admin:</strong> The highest level of access. Admins have complete control over the system, including the ability to manage all users, oversee global organizational settings, assign roles, and access sensitive profile data (such as Date of Joining, Employee IDs, and Reporting chains). Admins can view, edit, and delete any project, task, or team across the entire organization.</li>
+                <li><strong>Manager:</strong> Designed for team leaders and department heads. Managers possess elevated privileges to oversee their specific projects and direct reports. They can create tasks, assign work to associates, view team workloads, and manage project milestones. While they have broad operational control within their domains, they cannot modify critical global system settings or sensitive employee profile configurations.</li>
+                <li><strong>Associate:</strong> The foundational role for individual contributors. Associates are granted focused access to execute their day-to-day responsibilities. They can view projects they are assigned to, update task statuses on the Kanban board, log activity, and manage their basic personal profile data. Associates are restricted from administrative actions such as altering deadlines or reassigning tasks to others.</li>
+              </ul>
+            </div>
           </section>
 
-          <section id="toc" className="mb-6">
-            <h2>Table of Contents</h2>
-            <div className="toc-grid mb-4">
-              <ol className="list-decimal list-inside">
-                <li><a href="#landing">Landing Page &amp; Authentication</a></li>
-                <li><a href="#dashboard">Unified Command Center: Dashboard</a></li>
-                <li><a href="#user-management">User &amp; Organizational Directory Management</a></li>
-                <li><a href="#projects">Project &amp; Milestone Management</a></li>
-                <li><a href="#tasks">Task &amp; Subtask Lifecycle Management</a></li>
-                <li><a href="#kanban">Interactive Kanban Board</a></li>
+          <section id="toc" className="mb-8 action-box" style={{ borderLeft: "4px solid var(--accent-cyan)" }}>
+            <h2 style={{ margin: "0 0 16px 0", fontSize: "1.5rem" }}>Table of Contents</h2>
+            <div className="toc-grid">
+              <ol className="list-decimal list-inside" style={{ color: "var(--text-secondary)" }}>
+                <li className="mb-2"><a href="#landing">Landing Page &amp; Authentication</a></li>
+                <li className="mb-2"><a href="#dashboard">Unified Command Center: Dashboard</a></li>
+                <li className="mb-2"><a href="#user-management">User &amp; Organizational Directory Management</a></li>
+                <li className="mb-2"><a href="#projects">Project &amp; Milestone Management</a></li>
+                <li className="mb-2"><a href="#tasks">Task &amp; Subtask Lifecycle Management</a></li>
+                <li className="mb-2"><a href="#kanban">Interactive Kanban Board</a></li>
               </ol>
 
-              <ol start={7} className="list-decimal list-inside">
-                <li><a href="#focus">Focus Mode Panel</a></li>
-                <li><a href="#resource">Resource Allocation &amp; Team Workload</a></li>
-                <li><a href="#analytics">Enterprise Analytics &amp; Visual BI</a></li>
-                <li><a href="#settings">Personal Settings &amp; Profile Customization</a></li>
-                <li><a href="#cleanup">Data Cleanup: Safe Deletion Workflows</a></li>
-                <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
+              <ol start={7} className="list-decimal list-inside" style={{ color: "var(--text-secondary)" }}>
+                <li className="mb-2"><a href="#focus">Focus Mode Panel</a></li>
+                <li className="mb-2"><a href="#resource">Resource Allocation &amp; Team Workload</a></li>
+                <li className="mb-2"><a href="#analytics">Enterprise Analytics &amp; Visual BI</a></li>
+                <li className="mb-2"><a href="#settings">Personal Settings &amp; Profile Customization</a></li>
+                <li className="mb-2"><a href="#cleanup">Data Cleanup: Safe Deletion Workflows</a></li>
+                <li className="mb-2"><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
               </ol>
             </div>
           </section>
 
           <article id="landing" className="mb-6 action-box" data-side="right">
-            <div className="action-controls">
-              <a href="/product#landing" className="">Open</a>
-              <a href="#landing" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>1. Landing Page &amp; Authentication</span>
             </h2>
-            <h3>A. Navigating the Public Space</h3>
-            <p>The public space of NextGen Task Manager consists of three core pages:</p>
-            <ul>
-              <li><strong>Product Page (Landing):</strong> Highlighting core marketing assets, dark/light compatibility, sleek gradients, and responsiveness.</li>
-              <li><strong>Signup Page:</strong> Allows new users to easily register by entering their details.</li>
-              <li><strong>Login Page:</strong> Secured gate where registered users can input their email and password.</li>
-            </ul>
+            <div style={{ marginTop: "16px" }}>
+              <h3>A. Navigating the Public Space</h3>
+              <p>The public space of NextGen Task Manager consists of three core pages:</p>
+              <ul>
+                <li><strong>Product Page (Landing):</strong> Highlighting core marketing assets, dark/light compatibility, sleek gradients, and responsiveness.</li>
+                <li><strong>Signup Page:</strong> Allows new users to easily register by entering their details.</li>
+                <li><strong>Login Page:</strong> Secured gate where registered users can input their email and password.</li>
+              </ul>
 
-            <h3>B. Standard Login Workflow</h3>
-            <ol>
-              <li>Direct your browser to the NextGen Task Manager web application.</li>
-              <li>Click <strong>Login</strong> on the top navigation header.</li>
-              <li>Input the following standard administrative/manager credentials:
-                <ul>
-                  <li><code>Email Address:</code> joy@yopmail.com</li>
-                  <li><code>Password:</code> tesXXXXX</li>
-                </ul>
-              </li>
-              <li>Toggle the <strong>Theme Selector</strong> at the top right to choose between Dark/Light mode before logging in, if desired.</li>
-              <li>Click the secure <strong>Login</strong> button.</li>
-            </ol>
+              <h3>B. Standard Login Workflow</h3>
+              <ol>
+                <li>Direct your browser to the NextGen Task Manager web application.</li>
+                <li>Click <strong>Login</strong> on the top navigation header.</li>
+                <li>Input the following standard administrative/manager credentials:
+                  <ul>
+                    <li><code>Email Address:</code> joy@yopmail.com</li>
+                    <li><code>Password:</code> tesXXXXX</li>
+                  </ul>
+                </li>
+                <li>Toggle the <strong>Theme Selector</strong> at the top right to choose between Dark/Light mode before logging in, if desired.</li>
+                <li>Click the secure <strong>Login</strong> button.</li>
+              </ol>
+            </div>
           </article>
 
           <article id="dashboard" className="mb-6 action-box" data-side="left">
-            <div className="action-controls">
-              <a href="/product#dashboard" className="">Open</a>
-              <a href="#dashboard" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>2. Unified Command Center: Dashboard</span>
             </h2>
-            <p>Once logged in, you will be greeted by the <strong>Dashboard</strong>, the central control hub of the application.</p>
-            <h3>A. Core Features &amp; Metrics</h3>
-            <ul>
-              <li><strong>Active Summaries:</strong> Live indicators showing <em>Total Projects</em>, <em>Active Tasks</em>, <em>Assigned Members</em>, and <em>Budget Burn</em> status.</li>
-              <li><strong>Dynamic Project Filtering:</strong> Locate the project dropdown filter at the top of the dashboard. Changing the selected project dynamically updates all downstream task counts, completion percentages, and visual workload distributions in real-time.</li>
-              <li><strong>Quick-Access Navigation Sidebar:</strong> Use the left collapsible sidebar to jump to all functional tabs, such as Tasks, Kanban, Analytics, Team, User Management, and Settings.</li>
-            </ul>
-            <div className="section-media">
-              <svg xmlns="http://www.w3.org/2000/svg" width="700" height="300" viewBox="0 0 700 300">
-                <rect width="700" height="300" fill="#1a2332" rx="8"/>
-                <g transform="translate(50,40)">
-                  <text x="0" y="0" fontSize="16" fontWeight="700" fill="#ffffff">Dashboard Overview</text>
-                  <g transform="translate(0,30)">
-                    <rect x="0" y="0" width="80" height="200" rx="4" fill="#06b6d4" opacity="0.8"/>
-                    <rect x="100" y="50" width="80" height="150" rx="4" fill="#3b82f6" opacity="0.8"/>
-                    <rect x="200" y="20" width="80" height="180" rx="4" fill="#8b5cf6" opacity="0.8"/>
-                    <rect x="300" y="60" width="80" height="140" rx="4" fill="#ec4899" opacity="0.8"/>
-                    <rect x="400" y="40" width="80" height="160" rx="4" fill="#f59e0b" opacity="0.8"/>
-                  </g>
-                </g>
-              </svg>
+            <div style={{ marginTop: "16px" }}>
+              <p>Once logged in, you will be greeted by the <strong>Dashboard</strong>, the central control hub of the application.</p>
+              <h3>A. Core Features &amp; Metrics</h3>
+              <ul>
+                <li><strong>Active Summaries:</strong> Live indicators showing <em>Total Projects</em>, <em>Active Tasks</em>, <em>Assigned Members</em>, and <em>Budget Burn</em> status.</li>
+                <li><strong>Dynamic Project Filtering:</strong> Locate the project dropdown filter at the top of the dashboard. Changing the selected project dynamically updates all downstream task counts, completion percentages, and visual workload distributions in real-time.</li>
+                <li><strong>Quick-Access Navigation Sidebar:</strong> Use the left collapsible sidebar to jump to all functional tabs, such as Tasks, Kanban, Analytics, Team, User Management, and Settings.</li>
+              </ul>
+              
+              <div className="section-media">
+                <img
+                  src="/assets/images/dashboard_preview_1780221206697.png"
+                  alt="NextGen Task Manager Dashboard Snapshot"
+                />
+              </div>
+
+              {/* Interactive chart: actionable analytics summary */}
+              <InteractiveChart />
+              <p style={{ marginTop: "14px" }}>The dashboard supports dynamic filtering and quick actions for most entities.</p>
             </div>
-            {/* Interactive chart: actionable analytics summary */}
-            <InteractiveChart />
-            <p>The dashboard supports dynamic filtering and quick actions for most entities.</p>
           </article>
 
           <article id="user-management" className="mb-6 action-box" data-side="right">
-            <div className="action-controls">
-              <a href="/product#user-management" className="">Open</a>
-              <a href="#user-management" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>3. User &amp; Organizational Directory Management</span>
             </h2>
-            <p>Manage your company structure securely using the <strong>User Management</strong> portal (available to Administrators and Managers).</p>
+            <div style={{ marginTop: "16px" }}>
+              <p>Manage your company structure securely using the <strong>User Management</strong> portal (available to Administrators and Managers).</p>
 
-            <h3>A. Create a Department</h3>
-            <ol>
-              <li>Navigate to <strong>User Management</strong> in the left sidebar.</li>
-              <li>Select the <strong>Departments</strong> tab at the top.</li>
-              <li>Click the <strong>Add Department</strong> button and input a unique <em>Department Name</em>, select the <em>Department Head</em>, add a brief description, set the status to <em>Active</em>, and click <strong>Add Department</strong>.</li>
-            </ol>
+              <h3>A. Create a Department</h3>
+              <ol>
+                <li>Navigate to <strong>User Management</strong> in the left sidebar.</li>
+                <li>Select the <strong>Departments</strong> tab at the top.</li>
+                <li>Click the <strong>Add Department</strong> button and input a unique <em>Department Name</em>, select the <em>Department Head</em>, add a brief description, set the status to <em>Active</em>, and click <strong>Add Department</strong>.</li>
+              </ol>
 
-            <h3>B. Create a Team</h3>
-            <ol>
-              <li>Click the <strong>Teams</strong> tab under <strong>User Management</strong>.</li>
-              <li>Click the <strong>Add Team</strong> button and choose a <em>Team Name</em>, parent <em>Department</em>, assign a <em>Team Lead</em>, set initial status and description, then click <strong>Create Team</strong>.</li>
-            </ol>
+              <h3>B. Create a Team</h3>
+              <ol>
+                <li>Click the <strong>Teams</strong> tab under <strong>User Management</strong>.</li>
+                <li>Click the <strong>Add Team</strong> button and choose a <em>Team Name</em>, parent <em>Department</em>, assign a <em>Team Lead</em>, set initial status and description, then click <strong>Create Team</strong>.</li>
+              </ol>
 
-            <h3>C. Create a User</h3>
-            <ol>
-              <li>Click the <strong>Users</strong> tab and choose <strong>Add User</strong>.</li>
-              <li>Input first and last name, email, job title, role, department and team, then click <strong>Save</strong>.</li>
-            </ol>
+              <h3>C. Create a User</h3>
+              <ol>
+                <li>Click the <strong>Users</strong> tab and choose <strong>Add User</strong>.</li>
+                <li>Input first and last name, email, job title, role, department and team, then click <strong>Save</strong>.</li>
+              </ol>
+
+              <div className="section-media">
+                <img
+                  src="/assets/images/user_management_preview_1780221263353.png"
+                  alt="User Directory & Org Structure Preview"
+                />
+              </div>
+            </div>
           </article>
 
           <article id="projects" className="mb-6 action-box" data-side="left">
-            <div className="action-controls">
-              <a href="/product#projects" className="">Open</a>
-              <a href="#projects" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>4. Project &amp; Milestone Management</span>
             </h2>
-            <h3>A. Create a Project</h3>
-            <ol>
-              <li>Navigate to <strong>Projects</strong> and click <strong>Create Project</strong>.</li>
-              <li>Fill in <em>Project Name</em>, <em>Description</em>, <em>Total Budget</em>, assign a <em>Project Manager</em>, select start/end dates and priority, then click <strong>Create Project</strong>.</li>
-            </ol>
-            <h3>C. Milestone Tracking</h3>
-            <p>Under each project's details you will find the <strong>Milestone Progress Tracker</strong> showing major phase gates.</p>
-            <div className="section-media">
-              <svg xmlns="http://www.w3.org/2000/svg" width="700" height="250" viewBox="0 0 700 250">
-                <rect width="700" height="250" fill="#1a2332" rx="8"/>
-                <g transform="translate(50,30)">
-                  <text x="0" y="0" fontSize="14" fontWeight="700" fill="#ffffff">Project Milestone Progress</text>
-                  <line x1="0" x2="600" y1="50" y2="50" stroke="#06b6d4" strokeWidth="3" strokeLinecap="round"/>
-                  <circle cx="0" cy="50" r="8" fill="#06b6d4"/>
-                  <circle cx="150" cy="50" r="8" fill="#3b82f6"/>
-                  <circle cx="300" cy="50" r="8" fill="#8b5cf6"/>
-                  <circle cx="450" cy="50" r="8" fill="#ec4899"/>
-                  <circle cx="600" cy="50" r="8" fill="#f59e0b"/>
-                  <g fontSize="12" fill="#cbd5e1">
-                    <text x="-20" y="90">Planning</text>
-                    <text x="130" y="90">Dev</text>
-                    <text x="280" y="90">Testing</text>
-                    <text x="430" y="90">Deploy</text>
-                    <text x="580" y="90">Live</text>
+            <div style={{ marginTop: "16px" }}>
+              <h3>A. Create a Project</h3>
+              <ol>
+                <li>Navigate to <strong>Projects</strong> and click <strong>Create Project</strong>.</li>
+                <li>Fill in <em>Project Name</em>, <em>Description</em>, <em>Total Budget</em>, assign a <em>Project Manager</em>, select start/end dates and priority, then click <strong>Create Project</strong>.</li>
+              </ol>
+              <h3>C. Milestone Tracking</h3>
+              <p>Under each project's details you will find the <strong>Milestone Progress Tracker</strong> showing major phase gates.</p>
+              
+              <div className="section-media">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 700 250" style={{ maxHeight: "250px" }}>
+                  <rect width="700" height="250" fill="#111827" rx="8"/>
+                  <g transform="translate(50,30)">
+                    <text x="0" y="0" fontSize="14" fontWeight="700" fill="#F0F4FF">Project Milestone Progress</text>
+                    <line x1="0" x2="600" y1="50" y2="50" stroke="#00D4FF" strokeWidth="3" strokeLinecap="round"/>
+                    <circle cx="0" cy="50" r="8" fill="#00D4FF"/>
+                    <circle cx="150" cy="50" r="8" fill="#3b82f6"/>
+                    <circle cx="300" cy="50" r="8" fill="#8b5cf6"/>
+                    <circle cx="450" cy="50" r="8" fill="#ec4899"/>
+                    <circle cx="600" cy="50" r="8" fill="#f59e0b"/>
+                    <g fontSize="12" fill="#94A3B8">
+                      <text x="-20" y="90">Planning</text>
+                      <text x="130" y="90">Dev</text>
+                      <text x="280" y="90">Testing</text>
+                      <text x="430" y="90">Deploy</text>
+                      <text x="580" y="90">Live</text>
+                    </g>
                   </g>
-                </g>
-              </svg>
+                </svg>
+              </div>
+
+              <div className="section-media">
+                <img
+                  src="/assets/images/project_management_preview_1780221282132.png"
+                  alt="Project Milestone Tracking Dashboard"
+                />
+              </div>
             </div>
           </article>
 
           <article id="tasks" className="mb-6 action-box" data-side="right">
-            <div className="action-controls">
-              <a href="/product#tasks" className="">Open</a>
-              <a href="#tasks" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>5. Task &amp; Subtask Lifecycle Management</span>
             </h2>
-            <p>The granular level of daily operations is executed via the <strong>Task Management</strong> panel.</p>
+            <div style={{ marginTop: "16px" }}>
+              <p>The granular level of daily operations is executed via the <strong>Task Management</strong> panel.</p>
 
-            {/* Actionable flowchart for task lifecycle */}
-            <ActionableFlow />
-            <div className="overflow-auto">
-              <table className="w-full text-sm" style={{ borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr>
-                    <th className="text-left py-2">Action</th>
-                    <th className="text-left py-2">Target</th>
-                    <th className="text-left py-2">Fields Required</th>
-                    <th className="text-left py-2">Key Behavior</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="py-2">Create Task</td>
-                    <td>Parent Project</td>
-                    <td>Title, Description, Priority, Assignee, Status, Dates</td>
-                    <td>Automatically adds the task to both the list and Kanban board.</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2">Edit Task</td>
-                    <td>Active Task</td>
-                    <td>Status, Assignee, Priority, Description</td>
-                    <td>Live-syncs updates across all views immediately.</td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* Actionable flowchart for task lifecycle */}
+              <ActionableFlow />
+              
+              <div className="overflow-auto mt-6">
+                <table className="w-full text-sm" style={{ borderCollapse: 'collapse', color: 'var(--text-secondary)' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                      <th className="text-left py-2 font-bold" style={{ color: 'var(--text-primary)' }}>Action</th>
+                      <th className="text-left py-2 font-bold" style={{ color: 'var(--text-primary)' }}>Target</th>
+                      <th className="text-left py-2 font-bold" style={{ color: 'var(--text-primary)' }}>Fields Required</th>
+                      <th className="text-left py-2 font-bold" style={{ color: 'var(--text-primary)' }}>Key Behavior</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td className="py-3" style={{ fontWeight: 600, color: 'var(--accent-cyan)' }}>Create Task</td>
+                      <td>Parent Project</td>
+                      <td>Title, Description, Priority, Assignee, Status, Dates</td>
+                      <td>Automatically adds the task to both the list and Kanban board.</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3" style={{ fontWeight: 600, color: 'var(--accent-cyan)' }}>Edit Task</td>
+                      <td>Active Task</td>
+                      <td>Status, Assignee, Priority, Description</td>
+                      <td>Live-syncs updates across all views immediately.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </article>
 
           <article id="kanban" className="mb-6 action-box" data-side="left">
-            <div className="action-controls">
-              <a href="/product#kanban" className="">Open</a>
-              <a href="#kanban" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>6. Interactive Kanban Board</span>
             </h2>
-            <ol>
-              <li>Navigate to the <strong>Kanban Board</strong> tab on the sidebar.</li>
-              <li>The board is divided into four columns: <strong>TODO</strong>, <strong>IN_PROGRESS</strong>, <strong>REVIEW</strong>, and <strong>DONE</strong>.</li>
-              <li>Drag &amp; drop task cards between columns. Drops trigger a secure update to the server to persist state.</li>
-            </ol>
+            <div style={{ marginTop: "16px" }}>
+              <ol>
+                <li>Navigate to the <strong>Kanban Board</strong> tab on the sidebar.</li>
+                <li>The board is divided into four columns: <strong>TODO</strong>, <strong>IN_PROGRESS</strong>, <strong>REVIEW</strong>, and <strong>DONE</strong>.</li>
+                <li>Drag &amp; drop task cards between columns. Drops trigger a secure update to the server to persist state.</li>
+              </ol>
+
+              <div className="section-media">
+                <img
+                  src="/assets/images/kanban_board_preview_1780221228339.png"
+                  alt="Kanban Board Drag & Drop Interface"
+                />
+              </div>
+            </div>
           </article>
 
           <article id="focus" className="mb-6 action-box" data-side="right">
-            <div className="action-controls">
-              <a href="/product#focus" className="">Open</a>
-              <a href="#focus" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>7. Focus Mode Panel</span>
             </h2>
-            <ol>
-              <li>Select <strong>Focus</strong> from the navigation sidebar.</li>
-              <li>Create subtasks inline and check them off as you complete them to maintain peak daily velocity.</li>
-            </ol>
+            <div style={{ marginTop: "16px" }}>
+              <ol>
+                <li>Select <strong>Focus</strong> from the navigation sidebar.</li>
+                <li>Create subtasks inline and check them off as you complete them to maintain peak daily velocity.</li>
+              </ol>
+            </div>
           </article>
 
           <article id="resource" className="mb-6 action-box" data-side="left">
-            <div className="action-controls">
-              <a href="/product#resource" className="">Open</a>
-              <a href="#resource" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>8. Resource Allocation &amp; Team Workload</span>
             </h2>
-            <h3>A. Team Capacity Dashboard</h3>
-            <p>Use filters to select Departments and Teams. The page displays capacity index, current tasks and average completion times.</p>
-            <div className="section-media">
-              <svg xmlns="http://www.w3.org/2000/svg" width="700" height="280" viewBox="0 0 700 280">
-                <rect width="700" height="280" fill="#1a2332" rx="8"/>
-                <g transform="translate(50,30)">
-                  <text x="0" y="0" fontSize="14" fontWeight="700" fill="#ffffff">Team Workload Distribution</text>
-                  <g transform="translate(0,40)">
-                    <rect x="0" y="0" width="400" height="30" rx="4" fill="#06b6d4" opacity="0.3"/>
-                    <rect x="0" y="0" width="280" height="30" rx="4" fill="#06b6d4"/>
-                    <text x="290" y="22" fontSize="12" fill="#ffffff">70%</text>
-                    <text x="0" y="-5" fontSize="11" fill="#94a3b8">Engineering</text>
+            <div style={{ marginTop: "16px" }}>
+              <h3>A. Team Capacity Dashboard</h3>
+              <p>Use filters to select Departments and Teams. The page displays capacity index, current tasks and average completion times.</p>
+              
+              <div className="section-media">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 700 280" style={{ maxHeight: "280px" }}>
+                  <rect width="700" height="280" fill="#111827" rx="8"/>
+                  <g transform="translate(50,30)">
+                    <text x="0" y="0" fontSize="14" fontWeight="700" fill="#F0F4FF">Team Workload Distribution</text>
+                    <g transform="translate(0,40)">
+                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#00D4FF" opacity="0.3"/>
+                      <rect x="0" y="0" width="280" height="30" rx="4" fill="#00D4FF"/>
+                      <text x="290" y="22" fontSize="12" fill="#080C18" fontWeight="bold">70%</text>
+                      <text x="0" y="-5" fontSize="11" fill="#94A3B8">Engineering</text>
+                    </g>
+                    <g transform="translate(0,95)">
+                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#3b82f6" opacity="0.3"/>
+                      <rect x="0" y="0" width="320" height="30" rx="4" fill="#3b82f6"/>
+                      <text x="330" y="22" fontSize="12" fill="#ffffff" fontWeight="bold">80%</text>
+                      <text x="0" y="-5" fontSize="11" fill="#94A3B8">Design</text>
+                    </g>
+                    <g transform="translate(0,150)">
+                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#8b5cf6" opacity="0.3"/>
+                      <rect x="0" y="0" width="200" height="30" rx="4" fill="#8b5cf6"/>
+                      <text x="210" y="22" fontSize="12" fill="#ffffff" fontWeight="bold">50%</text>
+                      <text x="0" y="-5" fontSize="11" fill="#94A3B8">QA</text>
+                    </g>
+                    <g transform="translate(0,205)">
+                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#ec4899" opacity="0.3"/>
+                      <rect x="0" y="0" width="360" height="30" rx="4" fill="#ec4899"/>
+                      <text x="370" y="22" fontSize="12" fill="#ffffff" fontWeight="bold">90%</text>
+                      <text x="0" y="-5" fontSize="11" fill="#94A3B8">DevOps</text>
+                    </g>
                   </g>
-                  <g transform="translate(0,85)">
-                    <rect x="0" y="0" width="400" height="30" rx="4" fill="#3b82f6" opacity="0.3"/>
-                    <rect x="0" y="0" width="320" height="30" rx="4" fill="#3b82f6"/>
-                    <text x="330" y="22" fontSize="12" fill="#ffffff">80%</text>
-                    <text x="0" y="-5" fontSize="11" fill="#94a3b8">Design</text>
-                  </g>
-                  <g transform="translate(0,130)">
-                    <rect x="0" y="0" width="400" height="30" rx="4" fill="#8b5cf6" opacity="0.3"/>
-                    <rect x="0" y="0" width="200" height="30" rx="4" fill="#8b5cf6"/>
-                    <text x="210" y="22" fontSize="12" fill="#ffffff">50%</text>
-                    <text x="0" y="-5" fontSize="11" fill="#94a3b8">QA</text>
-                  </g>
-                  <g transform="translate(0,175)">
-                    <rect x="0" y="0" width="400" height="30" rx="4" fill="#ec4899" opacity="0.3"/>
-                    <rect x="0" y="0" width="360" height="30" rx="4" fill="#ec4899"/>
-                    <text x="370" y="22" fontSize="12" fill="#ffffff">90%</text>
-                    <text x="0" y="-5" fontSize="11" fill="#94a3b8">DevOps</text>
-                  </g>
-                </g>
-              </svg>
+                </svg>
+              </div>
             </div>
           </article>
 
           <article id="analytics" className="mb-6 action-box" data-side="right">
-            <div className="action-controls">
-              <a href="/product#analytics" className="">Open</a>
-              <a href="#analytics" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>9. Enterprise Analytics &amp; Visual BI</span>
             </h2>
-            <ul>
-              <li>Project Budget Analysis</li>
-              <li>Resource Utilization Heatmap</li>
-              <li>Project Performance Overview</li>
-            </ul>
+            <div style={{ marginTop: "16px" }}>
+              <ul>
+                <li>Project Budget Analysis</li>
+                <li>Resource Utilization Heatmap</li>
+                <li>Project Performance Overview</li>
+              </ul>
+
+              <div className="section-media">
+                <img
+                  src="/assets/images/analytics_preview_1780221244348.png"
+                  alt="Analytics BI Dashboard Screenshot"
+                />
+              </div>
+            </div>
           </article>
 
           <article id="settings" className="mb-6 action-box" data-side="left">
-            <div className="action-controls">
-              <a href="/product#settings" className="">Open</a>
-              <a href="#settings" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
-              <span>10. Personal Settings &amp; Profile Customization (Detailed)</span>
+              <span>10. Personal Settings &amp; Profile Customization</span>
             </h2>
-            <h3>A. Editing Profile Information</h3>
-            <ol>
-              <li>Navigate to <strong>Account Settings</strong> &gt; <strong>Profile</strong> and update your details.</li>
-              <li>Upload a profile picture (png/jpg/jpeg) and click <strong>Save Changes</strong>.</li>
-            </ol>
+            <div style={{ marginTop: "16px" }}>
+              <h3>A. Editing Profile Information</h3>
+              <ol>
+                <li>Navigate to <strong>Account Settings</strong> &gt; <strong>Profile</strong> and update your details.</li>
+                <li>Upload a profile picture (png/jpg/jpeg) and click <strong>Save Changes</strong>.</li>
+              </ol>
 
-            <h3>B. Configuring Account Security &amp; Changing Password</h3>
-            <ol>
-              <li>Click <strong>Security</strong> in Account Settings and follow the Change Password workflow to update your password.</li>
-              <li>Enable Two-Factor Authentication (2FA) to secure your account via an authenticator app.</li>
-            </ol>
+              <h3>B. Configuring Account Security &amp; Changing Password</h3>
+              <ol>
+                <li>Click <strong>Security</strong> in Account Settings and follow the Change Password workflow to update your password.</li>
+                <li>Enable Two-Factor Authentication (2FA) to secure your account via an authenticator app.</li>
+              </ol>
+
+              <div className="section-media">
+                <img
+                  src="/assets/images/settings_preview_1780221296918.png"
+                  alt="Settings & Profile Configuration Panel"
+                />
+              </div>
+            </div>
           </article>
 
           <article id="cleanup" className="mb-6 action-box" data-side="right">
-            <div className="action-controls">
-              <a href="/product#cleanup" className="">Open</a>
-              <a href="#cleanup" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>11. Data Cleanup: Safe Deletion Workflows</span>
             </h2>
-            <p>To ensure data integrity, deletions must follow hierarchical rules.</p>
-            <pre>
+            <div style={{ marginTop: "16px" }}>
+              <p>To ensure data integrity, deletions must follow hierarchical rules.</p>
+              <pre>
 {`graph TD
     A[Delete Subtask] --> B[Delete Task]
     B --> C[Delete Project]
     C --> D[Delete User]
     D --> E[Delete Team]
     E --> F[Delete Department]`}
-            </pre>
+              </pre>
+            </div>
           </article>
 
           <article id="faq" className="mb-6 action-box" data-side="left">
-            <div className="action-controls">
-              <a href="/product#faq" className="">Open</a>
-              <a href="#faq" className="secondary">Link</a>
-            </div>
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
               <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
               <span>12. Frequently Asked Questions (FAQ)</span>
             </h2>
-            <h3>Q1: Why does a Department delete fail?</h3>
-            <p>A department cannot be deleted if there are active teams or employees still assigned to it. Reassign personnel before deleting the department.</p>
+            <div style={{ marginTop: "16px" }}>
+              <h3>Q1: Why does a Department delete fail?</h3>
+              <p>A department cannot be deleted if there are active teams or employees still assigned to it. Reassign personnel before deleting the department.</p>
 
-            <h3>Q2: Why is a team member's status shown as "Overloaded" on the Workload page?</h3>
-            <p>The overload status is triggered when capacity utilization exceeds 90%.</p>
+              <h3>Q2: Why is a team member's status shown as "Overloaded" on the Workload page?</h3>
+              <p>The overload status is triggered when capacity utilization exceeds 90%.</p>
 
-            <h3>Q3: How do I change between Light and Dark mode?</h3>
-            <p>Use the Theme Toggle in the top-right header or in Account Settings to switch themes.</p>
+              <h3>Q3: How do I change between Light and Dark mode?</h3>
+              <p>Use the Theme Toggle in the top-right header or in Account Settings to switch themes.</p>
 
-            <h3>Q4: I uploaded my profile picture but it isn't appearing. What should I do?</h3>
-            <p>Ensure the file is a valid image and within size limits. Refresh the page to re-fetch the image.</p>
+              <h3>Q4: I uploaded my profile picture but it isn't appearing. What should I do?</h3>
+              <p>Ensure the file is a valid image and within size limits. Refresh the page to re-fetch the image.</p>
 
-            <h3>Q5: How is Project Variance calculated on the Analytics page?</h3>
-            <p>Project Variance measures the difference between actual progress and the original schedule. Positive variance means the project is ahead; negative means delayed.</p>
+              <h3>Q5: How is Project Variance calculated on the Analytics page?</h3>
+              <p>Project Variance measures the difference between actual progress and the original schedule. Positive variance means the project is ahead; negative means delayed.</p>
+            </div>
           </article>
 
-          <footer style={{ marginTop: '2rem', color: 'var(--muted)' }}>
-            <p>For more details visit: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer">https://nextgentask.co.in</a></p>
+          <footer style={{ marginTop: '3rem', borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: "20px", color: 'var(--muted)' }}>
+            <p>For more details visit: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://nextgentask.co.in</a></p>
           </footer>
         </div>
       </div>
