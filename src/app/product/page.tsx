@@ -103,7 +103,7 @@ export default function ProductPage() {
                   letterSpacing: '-0.02em',
                   fontFamily: 'Plus Jakarta Sans, sans-serif'
                 }}>
-                  NextGen Task Manager Manual
+                  NextGen Task Manager
                 </h1>
                 <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
                   A comprehensive step-by-step guide to navigating, operating, and effectively utilizing all key functional modules of the application.
