@@ -5,18 +5,18 @@ import ActionableFlow from "../../components/ActionableFlow";
 
 export default function ProductPage() {
   return (
-    <main style={{ background: "#fbfdff", minHeight: "100vh", paddingTop: "5.5rem" }}>
+    <main style={{ background: "linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2d1b4e 100%)", minHeight: "100vh", paddingTop: "5.5rem" }}>
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Theme + prose styles */}
         <style dangerouslySetInnerHTML={{ __html: `
           :root{
             --accent-cyan:#06b6d4;
-            --text-primary:#0f172a;
-            --text-secondary:#374151;
-            --muted:#6b7280;
-            --card-bg:#ffffff;
+            --text-primary:#ffffff;
+            --text-secondary:#cbd5e1;
+            --muted:#94a3b8;
+            --card-bg:#1a2332;
           }
-          .prose-container{ max-width:65ch; margin:0 auto; color:var(--text-secondary); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.8 }
+          .prose-container{ max-width:100%; margin:0 auto; color:var(--text-secondary); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.8 }
           .prose-container h1{ color:var(--text-primary); font-size:2.25rem; margin-bottom:0.5rem }
           .prose-container h2{ color:var(--text-primary); font-size:1.25rem; margin-top:1.6rem; margin-bottom:0.6rem }
           .prose-container h3{ color:var(--text-primary); font-size:1.05rem; margin-top:1rem; margin-bottom:0.5rem }
@@ -29,9 +29,7 @@ export default function ProductPage() {
           .toc-grid ol{ margin:0 }
 
           /* Action box styles (zig-zag) */
-          .action-box{ position:relative; background:var(--card-bg); border-radius:12px; padding:18px; margin-bottom:1.75rem; box-shadow:0 6px 18px rgba(16,24,40,0.04); transition: transform .15s ease, box-shadow .15s ease }
-          /* base width for zig-zag columns */
-          .action-box{ width:70%; }
+          .action-box{ position:relative; background:var(--card-bg); border-radius:12px; padding:18px; margin-bottom:1.75rem; box-shadow:0 6px 18px rgba(16,24,40,0.04); transition: transform .15s ease, box-shadow .15s ease; width:100%; box-sizing:border-box }
           .action-box[data-side="left"]{ margin-left:0; margin-right:auto; border-left:4px solid var(--accent-cyan); border-right:none; }
           .action-box[data-side="right"]{ margin-left:auto; margin-right:0; border-right:4px solid var(--accent-cyan); border-left:none; }
           .action-box:hover{ transform:translateY(-6px); box-shadow:0 18px 50px rgba(16,24,40,0.06) }
@@ -41,11 +39,37 @@ export default function ProductPage() {
           .action-controls a{ padding:6px 10px; border-radius:8px; background:#f3f4f6; color:var(--text-primary); font-weight:600; text-decoration:none; font-size:0.85rem }
           .action-controls a.secondary{ background:transparent; border:1px solid rgba(15,23,42,0.04) }
 
-          /* responsive: stack and full-width on small screens */
-          @media (max-width:1024px){ .action-box{ width:88% } }
-          @media (max-width:768px){ .toc-grid{ grid-template-columns:1fr } .prose-container{ padding:0 1rem } .action-controls{ position:static; margin-top:8px }
-            .action-box{ padding:14px; width:100%; margin-left:auto; margin-right:auto; border-left:4px solid var(--accent-cyan); border-right:none }
-            .action-box[data-side="right"]{ border-left:4px solid var(--accent-cyan); border-right:none }
+          /* Media/image responsive */
+          .section-media{ margin:12px 0 18px; display:flex; justify-content:center }
+          .section-media img{ max-width:100%; height:auto; border-radius:10px; box-shadow:0 8px 30px rgba(16,24,40,0.06) }
+
+          /* responsive: tablet and mobile */
+          @media (max-width:1024px){ 
+            .action-box{ width:95%; padding:16px }
+            .prose-container h2{ font-size:1.1rem }
+            .prose-container p{ font-size:0.95rem }
+          }
+          @media (max-width:768px){ 
+            .toc-grid{ grid-template-columns:1fr } 
+            .prose-container{ padding:0 1rem } 
+            .action-controls{ position:static; margin-top:8px; justify-content:flex-start }
+            .action-box{ padding:12px; width:100%; margin-left:auto; margin-right:auto; border-left:4px solid var(--accent-cyan); border-right:none }
+            .action-box[data-side="right"]{ border-left:4px solid var(--accent-cyan); border-right:none; margin-left:auto; margin-right:auto }
+            .prose-container h1{ font-size:1.75rem }
+            .prose-container h2{ font-size:1rem }
+            .prose-container h3{ font-size:0.95rem }
+            .prose-container p{ font-size:0.9rem }
+            header.mb-6{ flex-direction:column; gap:1rem; align-items:flex-start }
+          }
+          @media (max-width:480px){
+            .prose-container{ padding:0 0.75rem }
+            .action-box{ padding:10px; margin-bottom:1rem }
+            .prose-container h1{ font-size:1.5rem }
+            .prose-container h2{ font-size:0.9rem }
+            .prose-container h3{ font-size:0.85rem }
+            .prose-container p{ font-size:0.85rem; line-height:1.6 }
+            .action-controls a{ padding:4px 8px; font-size:0.75rem }
+            table{ font-size:0.75rem }
           }
         ` }} />
 
@@ -71,7 +95,7 @@ export default function ProductPage() {
                 </p>
               </div>
                <p style={{ color: 'var(--muted)' }}>
-                 Product page: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer">https://www.nextgentask.co.in</a>
+                 Product page: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer">https://nextgentask.co.in</a>
                </p>
              </div>
            </header>
@@ -174,6 +198,21 @@ export default function ProductPage() {
               <li><strong>Dynamic Project Filtering:</strong> Locate the project dropdown filter at the top of the dashboard. Changing the selected project dynamically updates all downstream task counts, completion percentages, and visual workload distributions in real-time.</li>
               <li><strong>Quick-Access Navigation Sidebar:</strong> Use the left collapsible sidebar to jump to all functional tabs, such as Tasks, Kanban, Analytics, Team, User Management, and Settings.</li>
             </ul>
+            <div className="section-media">
+              <svg xmlns="http://www.w3.org/2000/svg" width="700" height="300" viewBox="0 0 700 300">
+                <rect width="700" height="300" fill="#1a2332" rx="8"/>
+                <g transform="translate(50,40)">
+                  <text x="0" y="0" fontSize="16" fontWeight="700" fill="#ffffff">Dashboard Overview</text>
+                  <g transform="translate(0,30)">
+                    <rect x="0" y="0" width="80" height="200" rx="4" fill="#06b6d4" opacity="0.8"/>
+                    <rect x="100" y="50" width="80" height="150" rx="4" fill="#3b82f6" opacity="0.8"/>
+                    <rect x="200" y="20" width="80" height="180" rx="4" fill="#8b5cf6" opacity="0.8"/>
+                    <rect x="300" y="60" width="80" height="140" rx="4" fill="#ec4899" opacity="0.8"/>
+                    <rect x="400" y="40" width="80" height="160" rx="4" fill="#f59e0b" opacity="0.8"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
             {/* Interactive chart: actionable analytics summary */}
             <InteractiveChart />
             <p>The dashboard supports dynamic filtering and quick actions for most entities.</p>
@@ -226,6 +265,27 @@ export default function ProductPage() {
             </ol>
             <h3>C. Milestone Tracking</h3>
             <p>Under each project's details you will find the <strong>Milestone Progress Tracker</strong> showing major phase gates.</p>
+            <div className="section-media">
+              <svg xmlns="http://www.w3.org/2000/svg" width="700" height="250" viewBox="0 0 700 250">
+                <rect width="700" height="250" fill="#1a2332" rx="8"/>
+                <g transform="translate(50,30)">
+                  <text x="0" y="0" fontSize="14" fontWeight="700" fill="#ffffff">Project Milestone Progress</text>
+                  <line x1="0" x2="600" y1="50" y2="50" stroke="#06b6d4" strokeWidth="3" strokeLinecap="round"/>
+                  <circle cx="0" cy="50" r="8" fill="#06b6d4"/>
+                  <circle cx="150" cy="50" r="8" fill="#3b82f6"/>
+                  <circle cx="300" cy="50" r="8" fill="#8b5cf6"/>
+                  <circle cx="450" cy="50" r="8" fill="#ec4899"/>
+                  <circle cx="600" cy="50" r="8" fill="#f59e0b"/>
+                  <g fontSize="12" fill="#cbd5e1">
+                    <text x="-20" y="90">Planning</text>
+                    <text x="130" y="90">Dev</text>
+                    <text x="280" y="90">Testing</text>
+                    <text x="430" y="90">Deploy</text>
+                    <text x="580" y="90">Live</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
           </article>
 
           <article id="tasks" className="mb-6 action-box" data-side="right">
@@ -311,6 +371,38 @@ export default function ProductPage() {
             </h2>
             <h3>A. Team Capacity Dashboard</h3>
             <p>Use filters to select Departments and Teams. The page displays capacity index, current tasks and average completion times.</p>
+            <div className="section-media">
+              <svg xmlns="http://www.w3.org/2000/svg" width="700" height="280" viewBox="0 0 700 280">
+                <rect width="700" height="280" fill="#1a2332" rx="8"/>
+                <g transform="translate(50,30)">
+                  <text x="0" y="0" fontSize="14" fontWeight="700" fill="#ffffff">Team Workload Distribution</text>
+                  <g transform="translate(0,40)">
+                    <rect x="0" y="0" width="400" height="30" rx="4" fill="#06b6d4" opacity="0.3"/>
+                    <rect x="0" y="0" width="280" height="30" rx="4" fill="#06b6d4"/>
+                    <text x="290" y="22" fontSize="12" fill="#ffffff">70%</text>
+                    <text x="0" y="-5" fontSize="11" fill="#94a3b8">Engineering</text>
+                  </g>
+                  <g transform="translate(0,85)">
+                    <rect x="0" y="0" width="400" height="30" rx="4" fill="#3b82f6" opacity="0.3"/>
+                    <rect x="0" y="0" width="320" height="30" rx="4" fill="#3b82f6"/>
+                    <text x="330" y="22" fontSize="12" fill="#ffffff">80%</text>
+                    <text x="0" y="-5" fontSize="11" fill="#94a3b8">Design</text>
+                  </g>
+                  <g transform="translate(0,130)">
+                    <rect x="0" y="0" width="400" height="30" rx="4" fill="#8b5cf6" opacity="0.3"/>
+                    <rect x="0" y="0" width="200" height="30" rx="4" fill="#8b5cf6"/>
+                    <text x="210" y="22" fontSize="12" fill="#ffffff">50%</text>
+                    <text x="0" y="-5" fontSize="11" fill="#94a3b8">QA</text>
+                  </g>
+                  <g transform="translate(0,175)">
+                    <rect x="0" y="0" width="400" height="30" rx="4" fill="#ec4899" opacity="0.3"/>
+                    <rect x="0" y="0" width="360" height="30" rx="4" fill="#ec4899"/>
+                    <text x="370" y="22" fontSize="12" fill="#ffffff">90%</text>
+                    <text x="0" y="-5" fontSize="11" fill="#94a3b8">DevOps</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
           </article>
 
           <article id="analytics" className="mb-6 action-box" data-side="right">
@@ -397,7 +489,7 @@ export default function ProductPage() {
           </article>
 
           <footer style={{ marginTop: '2rem', color: 'var(--muted)' }}>
-            <p>For more details visit: <a href="https://nextgentask.co.in" target="_blank" rel="noreferrer">https://www.nextgentask.co.in</a></p>
+            <p>For more details visit: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer">https://nextgentask.co.in</a></p>
           </footer>
         </div>
       </div>
