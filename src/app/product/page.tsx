@@ -28,7 +28,8 @@ export default function ProductPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-12 relative z-10">
         {/* Theme + prose styles */}
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           :root{
             --accent-cyan:#00D4FF;
             --text-primary:#F0F4FF;
@@ -55,8 +56,15 @@ export default function ProductPage() {
           .action-box[data-side="right"]{ margin-left:auto; margin-right:0; border-right:4px solid var(--accent-cyan); border-left:none; }
           .action-box:hover{ border-color:rgba(0, 212, 255, 0.35); transform:translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(0, 212, 255, 0.15); }
 
+          .action-controls{ position:absolute; right:20px; top:20px; display:flex; gap:8px; align-items:center }
+          .action-box[data-side="right"] .action-controls{ left:20px; right:auto }
+          .action-controls a{ padding:6px 12px; border-radius:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:var(--text-primary); font-weight:600; text-decoration:none; font-size:0.85rem; transition:all 0.2s }
+          .action-controls a:hover{ background:var(--accent-cyan); color:#080C18 }
+          .action-controls a.secondary{ background:transparent; border:1px solid rgba(255,255,255,0.1) }
+          .action-controls a.secondary:hover{ background:rgba(255,255,255,0.1); color:var(--text-primary) }
+
           /* Media/image responsive */
-          .section-media{ max-width:580px; margin:24px auto; display:flex; justify-content:center; border-radius:12px; overflow:hidden; border:1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) }
+          .section-media{ margin:20px 0; display:flex; justify-content:center; border-radius:12px; overflow:hidden; border:1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) }
           .section-media img{ width:100%; height:auto; display:block; transition:transform 0.4s ease-in-out }
           .section-media img:hover{ transform:scale(1.03) }
 
@@ -69,13 +77,14 @@ export default function ProductPage() {
           @media (max-width:768px){ 
             .toc-grid{ grid-template-columns:1fr } 
             .prose-container{ padding:0 } 
+            .action-controls{ position:static; margin-top:12px; justify-content:flex-start; gap:8px }
             .action-box{ padding:16px; width:100%; margin-left:auto; margin-right:auto; border-left:4px solid var(--accent-cyan) !important; border-right:none !important }
             .action-box[data-side="right"]{ border-left:4px solid var(--accent-cyan) !important; border-right:none !important; margin-left:auto; margin-right:auto }
             .prose-container h1{ font-size:1.75rem }
             .prose-container h2{ font-size:1.15rem }
             .prose-container h3{ font-size:1rem }
             .prose-container p{ font-size:0.9rem }
-            header.mb-6{ flex-direction:column; gap:1.25rem; align-items:flex-start }
+            header.mb-8{ flex-direction:column; gap:1.25rem; align-items:flex-start }
           }
           @media (max-width:480px){
             .action-box{ padding:12px; margin-bottom:1.25rem }
@@ -83,13 +92,14 @@ export default function ProductPage() {
             .prose-container h2{ font-size:1.05rem }
             .prose-container h3{ font-size:0.9rem }
             .prose-container p{ font-size:0.85rem; line-height:1.6 }
+            .action-controls a{ padding:4px 8px; font-size:0.75rem }
             table{ font-size:0.75rem }
           }
         ` }} />
 
         <div className="prose-container">
-          <header className="mb-8 flex items-center gap-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", paddingBottom: "24px" }}>
-            <ProductLogo className="h-16 md:h-20 object-contain" />
+          <header className="mb-8 flex flex-col md:flex-row items-start md:items-center gap-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", paddingBottom: "24px" }}>
+            <ProductLogo className="h-16 md:h-20 object-contain flex-shrink-0" />
             <div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <h1 style={{
@@ -206,7 +216,7 @@ export default function ProductPage() {
                 <li><strong>Dynamic Project Filtering:</strong> Locate the project dropdown filter at the top of the dashboard. Changing the selected project dynamically updates all downstream task counts, completion percentages, and visual workload distributions in real-time.</li>
                 <li><strong>Quick-Access Navigation Sidebar:</strong> Use the left collapsible sidebar to jump to all functional tabs, such as Tasks, Kanban, Analytics, Team, User Management, and Settings.</li>
               </ul>
-              
+
               <div className="section-media">
                 <img
                   src="/assets/images/dashboard_preview_1780221206697.png"
@@ -269,18 +279,18 @@ export default function ProductPage() {
               </ol>
               <h3>C. Milestone Tracking</h3>
               <p>Under each project's details you will find the <strong>Milestone Progress Tracker</strong> showing major phase gates.</p>
-              
+
               <div className="section-media">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 700 250" style={{ maxHeight: "250px" }}>
-                  <rect width="700" height="250" fill="#111827" rx="8"/>
+                  <rect width="700" height="250" fill="#111827" rx="8" />
                   <g transform="translate(50,30)">
                     <text x="0" y="0" fontSize="14" fontWeight="700" fill="#F0F4FF">Project Milestone Progress</text>
-                    <line x1="0" x2="600" y1="50" y2="50" stroke="#00D4FF" strokeWidth="3" strokeLinecap="round"/>
-                    <circle cx="0" cy="50" r="8" fill="#00D4FF"/>
-                    <circle cx="150" cy="50" r="8" fill="#3b82f6"/>
-                    <circle cx="300" cy="50" r="8" fill="#8b5cf6"/>
-                    <circle cx="450" cy="50" r="8" fill="#ec4899"/>
-                    <circle cx="600" cy="50" r="8" fill="#f59e0b"/>
+                    <line x1="0" x2="600" y1="50" y2="50" stroke="#00D4FF" strokeWidth="3" strokeLinecap="round" />
+                    <circle cx="0" cy="50" r="8" fill="#00D4FF" />
+                    <circle cx="150" cy="50" r="8" fill="#3b82f6" />
+                    <circle cx="300" cy="50" r="8" fill="#8b5cf6" />
+                    <circle cx="450" cy="50" r="8" fill="#ec4899" />
+                    <circle cx="600" cy="50" r="8" fill="#f59e0b" />
                     <g fontSize="12" fill="#94A3B8">
                       <text x="-20" y="90">Planning</text>
                       <text x="130" y="90">Dev</text>
@@ -311,7 +321,7 @@ export default function ProductPage() {
 
               {/* Actionable flowchart for task lifecycle */}
               <ActionableFlow />
-              
+
               <div className="overflow-auto mt-6">
                 <table className="w-full text-sm" style={{ borderCollapse: 'collapse', color: 'var(--text-secondary)' }}>
                   <thead>
@@ -383,33 +393,33 @@ export default function ProductPage() {
             <div style={{ marginTop: "16px" }}>
               <h3>A. Team Capacity Dashboard</h3>
               <p>Use filters to select Departments and Teams. The page displays capacity index, current tasks and average completion times.</p>
-              
+
               <div className="section-media">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 700 280" style={{ maxHeight: "280px" }}>
-                  <rect width="700" height="280" fill="#111827" rx="8"/>
+                  <rect width="700" height="280" fill="#111827" rx="8" />
                   <g transform="translate(50,30)">
                     <text x="0" y="0" fontSize="14" fontWeight="700" fill="#F0F4FF">Team Workload Distribution</text>
                     <g transform="translate(0,40)">
-                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#00D4FF" opacity="0.3"/>
-                      <rect x="0" y="0" width="280" height="30" rx="4" fill="#00D4FF"/>
+                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#00D4FF" opacity="0.3" />
+                      <rect x="0" y="0" width="280" height="30" rx="4" fill="#00D4FF" />
                       <text x="290" y="22" fontSize="12" fill="#080C18" fontWeight="bold">70%</text>
                       <text x="0" y="-5" fontSize="11" fill="#94A3B8">Engineering</text>
                     </g>
                     <g transform="translate(0,95)">
-                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#3b82f6" opacity="0.3"/>
-                      <rect x="0" y="0" width="320" height="30" rx="4" fill="#3b82f6"/>
+                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#3b82f6" opacity="0.3" />
+                      <rect x="0" y="0" width="320" height="30" rx="4" fill="#3b82f6" />
                       <text x="330" y="22" fontSize="12" fill="#ffffff" fontWeight="bold">80%</text>
                       <text x="0" y="-5" fontSize="11" fill="#94A3B8">Design</text>
                     </g>
                     <g transform="translate(0,150)">
-                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#8b5cf6" opacity="0.3"/>
-                      <rect x="0" y="0" width="200" height="30" rx="4" fill="#8b5cf6"/>
+                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#8b5cf6" opacity="0.3" />
+                      <rect x="0" y="0" width="200" height="30" rx="4" fill="#8b5cf6" />
                       <text x="210" y="22" fontSize="12" fill="#ffffff" fontWeight="bold">50%</text>
                       <text x="0" y="-5" fontSize="11" fill="#94A3B8">QA</text>
                     </g>
                     <g transform="translate(0,205)">
-                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#ec4899" opacity="0.3"/>
-                      <rect x="0" y="0" width="360" height="30" rx="4" fill="#ec4899"/>
+                      <rect x="0" y="0" width="400" height="30" rx="4" fill="#ec4899" opacity="0.3" />
+                      <rect x="0" y="0" width="360" height="30" rx="4" fill="#ec4899" />
                       <text x="370" y="22" fontSize="12" fill="#ffffff" fontWeight="bold">90%</text>
                       <text x="0" y="-5" fontSize="11" fill="#94A3B8">DevOps</text>
                     </g>
@@ -475,7 +485,7 @@ export default function ProductPage() {
             <div style={{ marginTop: "16px" }}>
               <p>To ensure data integrity, deletions must follow hierarchical rules.</p>
               <pre>
-{`graph TD
+                {`graph TD
     A[Delete Subtask] --> B[Delete Task]
     B --> C[Delete Project]
     C --> D[Delete User]
@@ -508,9 +518,7 @@ export default function ProductPage() {
             </div>
           </article>
 
-          <footer style={{ marginTop: '3rem', borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: "20px", color: 'var(--muted)' }}>
-            <p>For more details visit: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://www.nextgentask.co.in</a></p>
-          </footer>
+
         </div>
       </div>
     </main>

@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import '../styles/index.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -50,12 +51,7 @@ export default function RootLayout({
         {/* Ensure no debug overlays or third-party components are rendering the 'N' button */}
         <Header />
         {children}
-        {/* Footer Section */}
-        <footer className="footer">
-          <div className="footer-logo">
-            <img src="/assets/logo.png" alt="Quantum Vertex Logo" className="footer-logo-img" />
-          </div>
-        </footer>
+        <Footer />
         {/* Runtime DOM fallback: ensure a Product nav link exists even if the active header is different */}
         <script
           dangerouslySetInnerHTML={{

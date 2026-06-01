@@ -2,6 +2,7 @@
 
 import AppImage from "@/components/ui/AppImage";
 import Icon from "@/components/ui/AppIcon";
+import Link from "next/link";
 
 export default function Footer() {
   const currentYear = 2026;
@@ -33,8 +34,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
           {/* Brand */}
           <div className="md:col-span-4">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-xl overflow-hidden">
+            <Link href="/" className="flex items-center gap-3 group mb-5" aria-label="Quantum Vertex Solutions - Go to home">
+              <div className="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0">
                 <AppImage
                   src="/assets/images/QVS-1772610519791.jpeg"
                   alt="Quantum Vertex Solutions logo"
@@ -46,7 +47,7 @@ export default function Footer() {
               <span className="font-jakarta font-800 text-[15px] tracking-tight text-white" style={{ fontWeight: 800 }}>
                 Quantum<span style={{ color: "var(--accent-cyan)" }}>Vertex</span>
               </span>
-            </div>
+            </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--text-secondary)", maxWidth: "280px" }}>
               Transforming businesses through innovative IT solutions and cutting-edge technology.
             </p>

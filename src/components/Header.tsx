@@ -40,7 +40,6 @@ export default function Header() {
     { label: "Achievements", href: "#achievements" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Founders", href: "#founders" },
-    { label: "Contact Us", href: "#contact" },
     { label: "Product", href: "/product" },
   ];
 

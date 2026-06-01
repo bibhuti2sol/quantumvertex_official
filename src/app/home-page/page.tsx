@@ -33,11 +33,11 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-primary)" }}>
-      <Header />
+
       <main>
         <HomePageInteractive />
       </main>
-      <Footer />
+
     </div>
   );
 }
