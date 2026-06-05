@@ -5,41 +5,36 @@ import ActionableFlow from "../../components/ActionableFlow";
 
 export default function ProductPage() {
   return (
-    <main style={{ position: "relative", overflow: "hidden", background: "var(--bg-primary)", minHeight: "100vh", paddingTop: "7.5rem" }}>
-      {/* Background orbs */}
-      <div
-        className="orb orb-cyan absolute"
-        style={{ width: "600px", height: "600px", top: "-100px", left: "-150px", opacity: 0.4 }} />
-      <div
-        className="orb orb-violet absolute"
-        style={{ width: "500px", height: "500px", top: "500px", right: "-100px", opacity: 0.35 }} />
-      <div
-        className="orb orb-amber absolute"
-        style={{ width: "400px", height: "400px", bottom: "150px", left: "5%", opacity: 0.2 }} />
-
-      {/* Grid pattern overlay */}
+    <main className="product-page">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)`,
+          backgroundSize: "72px 72px",
           zIndex: 0
         }} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-10 md:py-14 relative z-10">
         {/* Theme + prose styles */}
         <style dangerouslySetInnerHTML={{
           __html: `
+          .product-page{ position:relative; overflow:hidden; min-height:100vh; padding-top:7.5rem; background:
+            radial-gradient(circle at 18% 2%, rgba(0,212,255,0.22), transparent 32rem),
+            radial-gradient(circle at 84% 10%, rgba(245,158,11,0.14), transparent 30rem),
+            linear-gradient(135deg, #070b16 0%, #0c1423 44%, #070b16 100%);
+          }
           :root{
             --accent-cyan:#00D4FF;
+            --accent-lime:#A3E635;
+            --accent-pink:#FB7185;
             --text-primary:#F0F4FF;
             --text-secondary:#94A3B8;
             --muted:#4B5E7A;
-            --card-bg:rgba(17, 24, 39, 0.7);
+            --card-bg:rgba(12, 18, 32, 0.76);
           }
-          .prose-container{ max-width:100%; margin:0 auto; color:var(--text-secondary); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.8 }
-          .prose-container h1{ color:var(--text-primary); font-size:2.25rem; margin-bottom:0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:800 }
-          .prose-container h2{ color:var(--text-primary); font-size:1.4rem; margin-top:1.6rem; margin-bottom:0.6rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:700 }
+          .prose-container{ max-width:100%; margin:0 auto; color:var(--text-secondary); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.75 }
+          .prose-container h1{ color:var(--text-primary); font-family: 'Plus Jakarta Sans', sans-serif; font-weight:900 }
+          .prose-container h2{ color:var(--text-primary); font-size:1.35rem; margin-top:1.4rem; margin-bottom:0.6rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:800 }
           .prose-container h3{ color:var(--text-primary); font-size:1.1rem; margin-top:1rem; margin-bottom:0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:600 }
           .prose-container p{ margin-bottom:0.9rem }
           .prose-container a{ color:var(--accent-cyan); text-decoration:none; transition:opacity 0.2s }
@@ -47,14 +42,43 @@ export default function ProductPage() {
           .prose-container code{ background:rgba(255,255,255,0.06); padding:0.12rem 0.36rem; border-radius:6px; color:var(--accent-cyan); font-size:0.9em }
           .prose-container pre{ background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.07); padding:1rem; border-radius:12px; overflow:auto; color:var(--text-primary); font-family: monospace; font-size:0.9rem }
           h2,h3{ scroll-margin-top:7.5rem }
-          .toc-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem }
+          .product-hero{ position:relative; min-height:calc(100vh - 8rem); display:grid; grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr); gap:3rem; align-items:center; padding:2rem 0 5rem; }
+          .hero-copy{ max-width:650px; }
+          .product-kicker{ display:inline-flex; align-items:center; gap:0.65rem; padding:0.55rem 0.85rem; border:1px solid rgba(255,255,255,0.12); border-radius:999px; background:rgba(255,255,255,0.06); color:#dbeafe; font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; }
+          .status-dot{ width:0.55rem; height:0.55rem; border-radius:999px; background:var(--accent-lime); box-shadow:0 0 18px rgba(163,230,53,0.9); }
+          .hero-title{ margin:1.15rem 0 1rem; font-size:clamp(2.75rem, 6vw, 5.9rem); line-height:0.94; letter-spacing:0; }
+          .hero-title span{ display:block; background:linear-gradient(90deg,#f8fafc 0%,#67e8f9 45%,#facc15 100%); -webkit-background-clip:text; color:transparent; }
+          .hero-subtitle{ max-width:620px; color:#b7c4d8; font-size:1.12rem; line-height:1.8; }
+          .hero-actions{ display:flex; flex-wrap:wrap; gap:0.85rem; margin-top:1.65rem; }
+          .hero-button{ display:inline-flex; align-items:center; justify-content:center; gap:0.55rem; min-height:48px; padding:0 1.2rem; border-radius:12px; font-weight:900; border:1px solid rgba(255,255,255,0.12); transition:all 0.25s ease; }
+          .hero-button.primary{ color:#06111c; background:linear-gradient(135deg,#67e8f9,#a3e635); box-shadow:0 18px 46px rgba(0,212,255,0.23); }
+          .hero-button.secondary{ color:#eff6ff; background:rgba(255,255,255,0.06); }
+          .hero-button:hover{ transform:translateY(-2px); }
+          .hero-metrics{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0.8rem; margin-top:2rem; max-width:560px; }
+          .metric-tile{ border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:1rem; background:rgba(255,255,255,0.055); }
+          .metric-tile strong{ display:block; color:#fff; font-size:1.45rem; line-height:1; }
+          .metric-tile span{ display:block; margin-top:0.45rem; color:#8fa3bd; font-size:0.82rem; }
+          .product-preview{ position:relative; }
+          .preview-shell{ border:1px solid rgba(255,255,255,0.13); border-radius:26px; background:linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.045)); padding:0.8rem; box-shadow:0 30px 90px rgba(0,0,0,0.5); }
+          .preview-topbar{ display:flex; align-items:center; justify-content:space-between; padding:0.35rem 0.45rem 0.75rem; color:#9fb0c7; font-size:0.78rem; font-weight:800; }
+          .preview-dots{ display:flex; gap:0.38rem; }
+          .preview-dots span{ width:0.62rem; height:0.62rem; border-radius:999px; background:#475569; }
+          .preview-dots span:nth-child(1){ background:#fb7185; }
+          .preview-dots span:nth-child(2){ background:#facc15; }
+          .preview-dots span:nth-child(3){ background:#a3e635; }
+          .preview-shell img{ display:block; width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:18px; border:1px solid rgba(255,255,255,0.1); }
+          .floating-panel{ position:absolute; right:-1rem; bottom:-1.4rem; width:min(300px,70%); border:1px solid rgba(255,255,255,0.14); border-radius:18px; padding:1rem; background:rgba(7,11,22,0.86); backdrop-filter:blur(18px); box-shadow:0 20px 55px rgba(0,0,0,0.38); }
+          .floating-panel strong{ color:#fff; font-size:0.95rem; }
+          .floating-panel div{ height:0.5rem; border-radius:999px; margin-top:0.75rem; background:linear-gradient(90deg,#67e8f9 0 76%,rgba(255,255,255,0.12) 76%); }
+          .section-layout{ display:grid; grid-template-columns:260px minmax(0,1fr); gap:1.2rem; align-items:start; }
+          .toc-panel{ position:sticky; top:6.5rem; }
+          .toc-grid{ display:grid; grid-template-columns:1fr; gap:1rem }
           .toc-grid ol{ margin:0 }
 
-          /* Action box styles (zig-zag glassmorphism) */
-          .action-box{ position:relative; background:var(--card-bg); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:24px; margin-bottom:2rem; transition: all 0.3s ease-in-out; width:100%; box-sizing:border-box }
-          .action-box[data-side="left"]{ margin-left:0; margin-right:auto; border-left:4px solid var(--accent-cyan); border-right:none; }
-          .action-box[data-side="right"]{ margin-left:auto; margin-right:0; border-right:4px solid var(--accent-cyan); border-left:none; }
-          .action-box:hover{ border-color:rgba(0, 212, 255, 0.35); transform:translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(0, 212, 255, 0.15); }
+          .action-box{ position:relative; background:var(--card-bg); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:26px; margin-bottom:1rem; transition: all 0.25s ease; width:100%; box-sizing:border-box; overflow:hidden; box-shadow:0 18px 60px rgba(0,0,0,0.2); }
+          .action-box::before{ content:''; position:absolute; inset:0 0 auto 0; height:1px; background:linear-gradient(90deg, transparent, rgba(103,232,249,0.8), rgba(250,204,21,0.5), transparent); }
+          .action-box[data-side="left"], .action-box[data-side="right"]{ margin-left:0; margin-right:0; border-left:1px solid rgba(255,255,255,0.1); border-right:1px solid rgba(255,255,255,0.1); }
+          .action-box:hover{ border-color:rgba(103,232,249,0.28); transform:translateY(-2px); box-shadow: 0 24px 70px rgba(0,0,0,0.32), 0 0 42px rgba(0, 212, 255, 0.08); }
 
           .action-controls{ position:absolute; right:20px; top:20px; display:flex; gap:8px; align-items:center }
           .action-box[data-side="right"] .action-controls{ left:20px; right:auto }
@@ -64,12 +88,16 @@ export default function ProductPage() {
           .action-controls a.secondary:hover{ background:rgba(255,255,255,0.1); color:var(--text-primary) }
 
           /* Media/image responsive */
-          .section-media{ margin:20px 0; display:flex; justify-content:center; border-radius:12px; overflow:hidden; border:1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) }
+          .section-media{ margin:20px 0; display:flex; justify-content:center; border-radius:16px; overflow:hidden; border:1px solid rgba(255, 255, 255, 0.1); background:rgba(255,255,255,0.04); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.34) }
           .section-media img{ width:100%; height:auto; display:block; transition:transform 0.4s ease-in-out }
           .section-media img:hover{ transform:scale(1.03) }
+          .section-pill{ width:34px; height:34px; border-radius:11px; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; color:#06111c; font-weight:900; background:linear-gradient(135deg,#67e8f9,#a3e635); box-shadow:0 12px 28px rgba(0,212,255,0.2); }
 
           /* responsive: tablet and mobile */
           @media (max-width:1024px){ 
+            .product-hero{ grid-template-columns:1fr; min-height:auto; padding-top:1rem; }
+            .section-layout{ grid-template-columns:1fr; }
+            .toc-panel{ position:relative; top:auto; }
             .action-box{ width:100%; padding:20px }
             .prose-container h2{ font-size:1.25rem }
             .prose-container p{ font-size:0.95rem }
@@ -77,6 +105,7 @@ export default function ProductPage() {
           @media (max-width:768px){ 
             .toc-grid{ grid-template-columns:1fr } 
             .prose-container{ padding:0 } 
+            .prose-container .hero-title{ font-size:3.35rem; line-height:0.96; }
             .action-controls{ position:static; margin-top:12px; justify-content:flex-start; gap:8px }
             .action-box{ padding:16px; width:100%; margin-left:auto; margin-right:auto; border-left:4px solid var(--accent-cyan) !important; border-right:none !important }
             .action-box[data-side="right"]{ border-left:4px solid var(--accent-cyan) !important; border-right:none !important; margin-left:auto; margin-right:auto }
@@ -84,10 +113,12 @@ export default function ProductPage() {
             .prose-container h2{ font-size:1.15rem }
             .prose-container h3{ font-size:1rem }
             .prose-container p{ font-size:0.9rem }
-            header.mb-8{ flex-direction:column; gap:1.25rem; align-items:flex-start }
+            .hero-metrics{ grid-template-columns:1fr; }
+            .floating-panel{ position:relative; right:auto; bottom:auto; width:100%; margin-top:0.8rem; }
           }
           @media (max-width:480px){
             .action-box{ padding:12px; margin-bottom:1.25rem }
+            .prose-container .hero-title{ font-size:3.05rem; }
             .prose-container h1{ font-size:1.5rem }
             .prose-container h2{ font-size:1.05rem }
             .prose-container h3{ font-size:0.9rem }
@@ -98,36 +129,67 @@ export default function ProductPage() {
         ` }} />
 
         <div className="prose-container">
-          <header className="mb-8 flex flex-col md:flex-row items-start md:items-center gap-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", paddingBottom: "24px" }}>
-            <ProductLogo className="h-16 md:h-20 object-contain flex-shrink-0" />
-            <div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <h1 style={{
-                  margin: 0,
-                  fontSize: '2rem',
-                  fontWeight: 900,
-                  lineHeight: 1.1,
-                  background: 'linear-gradient(90deg, #00D4FF, #7C3AED)',
-                  WebkitBackgroundClip: 'text',
-                  color: 'transparent',
-                  letterSpacing: '-0.02em',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif'
-                }}>
-                  NextGen Task Manager
-                </h1>
-                <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
-                  A comprehensive step-by-step guide to navigating, operating, and effectively utilizing all key functional modules of the application.
-                </p>
-              </div>
-              <p style={{ color: 'var(--muted)', margin: "8px 0 0 0", fontSize: "0.9rem" }}>
-                Official Website: <a href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", textDecoration: "underline" }}>https://www.nextgentask.co.in</a>
+          <header className="product-hero">
+            <div className="hero-copy">
+              <div className="product-kicker"><span className="status-dot" /> Enterprise workflow OS</div>
+              <h1 className="hero-title">NextGen <span>Task Manager</span></h1>
+              <p className="hero-subtitle">
+                A polished command center for planning, assigning, tracking, and analyzing work across high-performing teams.
               </p>
+              <div className="hero-actions">
+                <a className="hero-button primary" href="#dashboard">Explore Product</a>
+                <a className="hero-button secondary" href="https://www.nextgentask.co.in" target="_blank" rel="noreferrer">Visit Website</a>
+              </div>
+              <div className="hero-metrics">
+                <div className="metric-tile"><strong>360°</strong><span>Project visibility</span></div>
+                <div className="metric-tile"><strong>RBAC</strong><span>Role-safe operations</span></div>
+                <div className="metric-tile"><strong>Live</strong><span>Kanban and analytics</span></div>
+              </div>
+            </div>
+            <div className="product-preview">
+              <ProductLogo className="h-12 md:h-14 object-contain mb-4" />
+              <div className="preview-shell">
+                <div className="preview-topbar">
+                  <div className="preview-dots"><span /><span /><span /></div>
+                  <span>nextgentask.co.in/dashboard</span>
+                </div>
+                <img src="/assets/images/dashboard_preview_1780221206697.png" alt="NextGen Task Manager dashboard preview" />
+              </div>
+              <div className="floating-panel">
+                <strong>Workload health</strong>
+                <div aria-hidden />
+                <p style={{ margin: "0.7rem 0 0", color: "#9fb0c7", fontSize: "0.82rem" }}>Smart visibility across projects, teams, and delivery risk.</p>
+              </div>
             </div>
           </header>
 
+          <div className="section-layout">
+            <aside className="toc-panel">
+              <section id="toc" className="mb-8 action-box" style={{ padding: "20px" }}>
+                <h2 style={{ margin: "0 0 16px 0", fontSize: "1rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>Contents</h2>
+                <div className="toc-grid">
+                  <ol className="list-decimal list-inside" style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+                    <li className="mb-2"><a href="#landing">Landing &amp; Authentication</a></li>
+                    <li className="mb-2"><a href="#dashboard">Dashboard</a></li>
+                    <li className="mb-2"><a href="#user-management">Directory Management</a></li>
+                    <li className="mb-2"><a href="#projects">Project Management</a></li>
+                    <li className="mb-2"><a href="#tasks">Task Lifecycle</a></li>
+                    <li className="mb-2"><a href="#kanban">Kanban Board</a></li>
+                    <li className="mb-2"><a href="#focus">Focus Mode</a></li>
+                    <li className="mb-2"><a href="#resource">Resource Allocation</a></li>
+                    <li className="mb-2"><a href="#analytics">Analytics</a></li>
+                    <li className="mb-2"><a href="#settings">Settings</a></li>
+                    <li className="mb-2"><a href="#cleanup">Data Cleanup</a></li>
+                    <li className="mb-2"><a href="#faq">FAQ</a></li>
+                  </ol>
+                </div>
+              </section>
+            </aside>
+
+            <div>
           <section id="about" className="mb-6 action-box" data-side="left">
             <h2 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '0.2px', margin: 0 }}>
-              <span aria-hidden style={{ width: 10, height: 34, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
+              <span className="section-pill" aria-hidden>0</span>
               <span>About NextGenTask Manager</span>
             </h2>
             <div style={{ marginTop: "16px" }}>
@@ -138,38 +200,15 @@ export default function ProductPage() {
               <p>Designed for scalability and user satisfaction, NextGen Task Manager transforms chaos into structured, actionable intelligence—empowering your workforce to focus on what truly matters: delivering exceptional results.</p>
 
               <h3 style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '1.125rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
-                <span aria-hidden style={{ width: 8, height: 28, borderRadius: 6, background: 'linear-gradient(180deg, var(--accent-cyan), #16a34a)' }} />
-                <span>Role-Based Access &amp; Privileges</span>
-              </h3>
+              <span className="section-pill" aria-hidden>R</span>
+              <span>Role-Based Access &amp; Privileges</span>
+            </h3>
               <p>Security and operational hierarchy are core to NextGen Task Manager. The system employs strict Role-Based Access Control (RBAC) to ensure users only interact with data and features appropriate to their organizational standing. The three primary roles are:</p>
               <ul>
                 <li><strong>Admin:</strong> The highest level of access. Admins have complete control over the system, including the ability to manage all users, oversee global organizational settings, assign roles, and access sensitive profile data (such as Date of Joining, Employee IDs, and Reporting chains). Admins can view, edit, and delete any project, task, or team across the entire organization.</li>
                 <li><strong>Manager:</strong> Designed for team leaders and department heads. Managers possess elevated privileges to oversee their specific projects and direct reports. They can create tasks, assign work to associates, view team workloads, and manage project milestones. While they have broad operational control within their domains, they cannot modify critical global system settings or sensitive employee profile configurations.</li>
                 <li><strong>Associate:</strong> The foundational role for individual contributors. Associates are granted focused access to execute their day-to-day responsibilities. They can view projects they are assigned to, update task statuses on the Kanban board, log activity, and manage their basic personal profile data. Associates are restricted from administrative actions such as altering deadlines or reassigning tasks to others.</li>
               </ul>
-            </div>
-          </section>
-
-          <section id="toc" className="mb-8 action-box" style={{ borderLeft: "4px solid var(--accent-cyan)" }}>
-            <h2 style={{ margin: "0 0 16px 0", fontSize: "1.5rem" }}>Table of Contents</h2>
-            <div className="toc-grid">
-              <ol className="list-decimal list-inside" style={{ color: "var(--text-secondary)" }}>
-                <li className="mb-2"><a href="#landing">Landing Page &amp; Authentication</a></li>
-                <li className="mb-2"><a href="#dashboard">Unified Command Center: Dashboard</a></li>
-                <li className="mb-2"><a href="#user-management">User &amp; Organizational Directory Management</a></li>
-                <li className="mb-2"><a href="#projects">Project &amp; Milestone Management</a></li>
-                <li className="mb-2"><a href="#tasks">Task &amp; Subtask Lifecycle Management</a></li>
-                <li className="mb-2"><a href="#kanban">Interactive Kanban Board</a></li>
-              </ol>
-
-              <ol start={7} className="list-decimal list-inside" style={{ color: "var(--text-secondary)" }}>
-                <li className="mb-2"><a href="#focus">Focus Mode Panel</a></li>
-                <li className="mb-2"><a href="#resource">Resource Allocation &amp; Team Workload</a></li>
-                <li className="mb-2"><a href="#analytics">Enterprise Analytics &amp; Visual BI</a></li>
-                <li className="mb-2"><a href="#settings">Personal Settings &amp; Profile Customization</a></li>
-                <li className="mb-2"><a href="#cleanup">Data Cleanup: Safe Deletion Workflows</a></li>
-                <li className="mb-2"><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
-              </ol>
             </div>
           </section>
 
@@ -519,6 +558,8 @@ export default function ProductPage() {
           </article>
 
 
+            </div>
+          </div>
         </div>
       </div>
     </main>

@@ -38,36 +38,36 @@ export default function InteractiveChart() {
   });
 
   return (
-    <div style={{ marginTop: 12, display: 'flex', gap: 18, alignItems: 'center', padding: 12, background: '#fff', borderRadius: 10, boxShadow: '0 6px 20px rgba(16,24,40,0.04)' }}>
+    <div style={{ marginTop: 16, display: 'flex', gap: 18, alignItems: 'center', padding: 16, background: 'rgba(255,255,255,0.055)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, boxShadow: '0 18px 45px rgba(0,0,0,0.24)', flexWrap: 'wrap' }}>
       <svg width={200} height={200} viewBox="0 0 200 200">
-        <circle cx="100" cy="100" r="90" fill="#f8fafc" />
+        <circle cx="100" cy="100" r="90" fill="rgba(255,255,255,0.05)" />
         {slices.map((s, i) => (
           <path key={s.seg.key} d={s.path} fill={s.seg.color} opacity={active && active !== s.seg.key ? 0.45 : 1} style={{ transition: 'opacity 200ms' }} onClick={() => setActive(s.seg.key)} />
         ))}
-        <circle cx="100" cy="100" r="36" fill="#ffffff" />
-        <text x="100" y="105" textAnchor="middle" style={{ fontWeight: 700 }}>{active ? segments.find(s => s.key === active)?.label : 'Tasks'}</text>
+        <circle cx="100" cy="100" r="36" fill="#08111f" />
+        <text x="100" y="105" textAnchor="middle" style={{ fontWeight: 800, fill: '#f8fafc', fontSize: active ? 11 : 14 }}>{active ? segments.find(s => s.key === active)?.label : 'Tasks'}</text>
       </svg>
 
-      <div>
+      <div style={{ minWidth: 260, flex: '1 1 260px' }}>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
           {segments.map(s => (
-            <button key={s.key} onClick={() => setActive(active === s.key ? null : s.key)} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '6px 8px', borderRadius: 8, background: active === s.key ? '#f1f5f9' : 'transparent', border: 'none', cursor: 'pointer' }}>
+            <button key={s.key} onClick={() => setActive(active === s.key ? null : s.key)} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '7px 9px', borderRadius: 10, background: active === s.key ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: '#f8fafc' }}>
               <span style={{ width: 12, height: 12, borderRadius: 6, background: s.color, display: 'inline-block' }} />
               <span style={{ fontWeight: 600 }}>{s.label}</span>
-              <span style={{ color: '#6b7280', marginLeft: 6 }}>{s.value}%</span>
+              <span style={{ color: '#9fb0c7', marginLeft: 6 }}>{s.value}%</span>
             </button>
           ))}
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
-          <button onClick={() => setActive(null)} style={{ padding: '8px 12px', borderRadius: 8, background: '#f3f4f6', border: '1px solid #e6e9ee' }}>Reset</button>
-          <button onClick={goToAnalytics} style={{ padding: '8px 12px', borderRadius: 8, background: 'linear-gradient(90deg,#06b6d4,#06b6d4)', color: '#fff', border: 'none' }}>Open Analytics</button>
+          <button onClick={() => setActive(null)} style={{ padding: '9px 13px', borderRadius: 10, background: 'rgba(255,255,255,0.06)', color: '#e2e8f0', border: '1px solid rgba(255,255,255,0.1)' }}>Reset</button>
+          <button onClick={goToAnalytics} style={{ padding: '9px 13px', borderRadius: 10, background: 'linear-gradient(135deg,#67e8f9,#a3e635)', color: '#06111c', fontWeight: 800, border: 'none' }}>Open Analytics</button>
         </div>
 
         {active && (
-          <div style={{ marginTop: 10, padding: 10, background: '#f8fafc', borderRadius: 8 }}>
-            <strong>{segments.find(s => s.key === active)?.label}</strong>
-            <p style={{ margin: 0, color: '#6b7280' }}>This segment represents {segments.find(s => s.key === active)?.value}% of tasks. Click "Open Analytics" for deeper insights.</p>
+          <div style={{ marginTop: 10, padding: 12, background: 'rgba(8,17,31,0.7)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12 }}>
+            <strong style={{ color: '#f8fafc' }}>{segments.find(s => s.key === active)?.label}</strong>
+            <p style={{ margin: 0, color: '#9fb0c7' }}>This segment represents {segments.find(s => s.key === active)?.value}% of tasks. Click "Open Analytics" for deeper insights.</p>
           </div>
         )}
       </div>
