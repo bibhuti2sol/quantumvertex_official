@@ -38,8 +38,8 @@ export default function InteractiveChart() {
   });
 
   return (
-    <div style={{ marginTop: 16, display: 'flex', gap: 18, alignItems: 'center', padding: 16, background: 'rgba(255,255,255,0.055)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, boxShadow: '0 18px 45px rgba(0,0,0,0.24)', flexWrap: 'wrap' }}>
-      <svg width={200} height={200} viewBox="0 0 200 200">
+    <div style={{ marginTop: 16, display: 'flex', gap: 18, alignItems: 'center', justifyContent: 'center', padding: 16, background: 'rgba(255,255,255,0.055)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, boxShadow: '0 18px 45px rgba(0,0,0,0.24)', flexWrap: 'wrap', maxWidth: '100%', overflow: 'hidden' }}>
+      <svg width={200} height={200} viewBox="0 0 200 200" style={{ width: 'min(200px, 100%)', height: 'auto', flex: '0 1 200px' }}>
         <circle cx="100" cy="100" r="90" fill="rgba(255,255,255,0.05)" />
         {slices.map((s, i) => (
           <path key={s.seg.key} d={s.path} fill={s.seg.color} opacity={active && active !== s.seg.key ? 0.45 : 1} style={{ transition: 'opacity 200ms' }} onClick={() => setActive(s.seg.key)} />
@@ -48,8 +48,8 @@ export default function InteractiveChart() {
         <text x="100" y="105" textAnchor="middle" style={{ fontWeight: 800, fill: '#f8fafc', fontSize: active ? 11 : 14 }}>{active ? segments.find(s => s.key === active)?.label : 'Tasks'}</text>
       </svg>
 
-      <div style={{ minWidth: 260, flex: '1 1 260px' }}>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+      <div style={{ minWidth: 0, flex: '1 1 220px', maxWidth: '100%' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8, flexWrap: 'wrap' }}>
           {segments.map(s => (
             <button key={s.key} onClick={() => setActive(active === s.key ? null : s.key)} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '7px 9px', borderRadius: 10, background: active === s.key ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: '#f8fafc' }}>
               <span style={{ width: 12, height: 12, borderRadius: 6, background: s.color, display: 'inline-block' }} />
@@ -59,7 +59,7 @@ export default function InteractiveChart() {
           ))}
         </div>
 
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <button onClick={() => setActive(null)} style={{ padding: '9px 13px', borderRadius: 10, background: 'rgba(255,255,255,0.06)', color: '#e2e8f0', border: '1px solid rgba(255,255,255,0.1)' }}>Reset</button>
           <button onClick={goToAnalytics} style={{ padding: '9px 13px', borderRadius: 10, background: 'linear-gradient(135deg,#67e8f9,#a3e635)', color: '#06111c', fontWeight: 800, border: 'none' }}>Open Analytics</button>
         </div>

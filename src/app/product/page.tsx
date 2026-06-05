@@ -18,7 +18,7 @@ export default function ProductPage() {
         {/* Theme + prose styles */}
         <style dangerouslySetInnerHTML={{
           __html: `
-          .product-page{ position:relative; overflow:hidden; min-height:100vh; padding-top:7.5rem; background:
+          .product-page{ position:relative; overflow:hidden; overflow-x:hidden; width:100%; max-width:100vw; min-height:100vh; padding-top:7.5rem; background:
             radial-gradient(circle at 18% 2%, rgba(0,212,255,0.22), transparent 32rem),
             radial-gradient(circle at 84% 10%, rgba(245,158,11,0.14), transparent 30rem),
             linear-gradient(135deg, #070b16 0%, #0c1423 44%, #070b16 100%);
@@ -32,7 +32,7 @@ export default function ProductPage() {
             --muted:#4B5E7A;
             --card-bg:rgba(12, 18, 32, 0.76);
           }
-          .prose-container{ max-width:100%; margin:0 auto; color:var(--text-secondary); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.75 }
+          .prose-container{ max-width:100%; min-width:0; margin:0 auto; color:var(--text-secondary); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.75 }
           .prose-container h1{ color:var(--text-primary); font-family: 'Plus Jakarta Sans', sans-serif; font-weight:900 }
           .prose-container h2{ color:var(--text-primary); font-size:1.35rem; margin-top:1.4rem; margin-bottom:0.6rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:800 }
           .prose-container h3{ color:var(--text-primary); font-size:1.1rem; margin-top:1rem; margin-bottom:0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:600 }
@@ -70,12 +70,16 @@ export default function ProductPage() {
           .floating-panel{ position:absolute; right:-1rem; bottom:-1.4rem; width:min(300px,70%); border:1px solid rgba(255,255,255,0.14); border-radius:18px; padding:1rem; background:rgba(7,11,22,0.86); backdrop-filter:blur(18px); box-shadow:0 20px 55px rgba(0,0,0,0.38); }
           .floating-panel strong{ color:#fff; font-size:0.95rem; }
           .floating-panel div{ height:0.5rem; border-radius:999px; margin-top:0.75rem; background:linear-gradient(90deg,#67e8f9 0 76%,rgba(255,255,255,0.12) 76%); }
-          .section-layout{ display:grid; grid-template-columns:260px minmax(0,1fr); gap:1.2rem; align-items:start; }
+          .section-layout{ display:grid; grid-template-columns:260px minmax(0,1fr); gap:1.2rem; align-items:start; min-width:0; }
+          .section-layout > *{ min-width:0; }
           .toc-panel{ position:sticky; top:6.5rem; }
           .toc-grid{ display:grid; grid-template-columns:1fr; gap:1rem }
           .toc-grid ol{ margin:0 }
 
-          .action-box{ position:relative; background:var(--card-bg); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:26px; margin-bottom:1rem; transition: all 0.25s ease; width:100%; box-sizing:border-box; overflow:hidden; box-shadow:0 18px 60px rgba(0,0,0,0.2); }
+          .action-box{ position:relative; background:var(--card-bg); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:26px; margin-bottom:1rem; transition: all 0.25s ease; width:100%; min-width:0; box-sizing:border-box; overflow:hidden; box-shadow:0 18px 60px rgba(0,0,0,0.2); }
+          .action-box *{ min-width:0; }
+          .action-box h2, .action-box h3{ max-width:100%; }
+          .action-box h2 span:last-child, .action-box h3 span:last-child{ overflow-wrap:anywhere; word-break:normal; }
           .action-box::before{ content:''; position:absolute; inset:0 0 auto 0; height:1px; background:linear-gradient(90deg, transparent, rgba(103,232,249,0.8), rgba(250,204,21,0.5), transparent); }
           .action-box[data-side="left"], .action-box[data-side="right"]{ margin-left:0; margin-right:0; border-left:1px solid rgba(255,255,255,0.1); border-right:1px solid rgba(255,255,255,0.1); }
           .action-box:hover{ border-color:rgba(103,232,249,0.28); transform:translateY(-2px); box-shadow: 0 24px 70px rgba(0,0,0,0.32), 0 0 42px rgba(0, 212, 255, 0.08); }
@@ -107,7 +111,7 @@ export default function ProductPage() {
             .prose-container{ padding:0 } 
             .prose-container .hero-title{ font-size:3.35rem; line-height:0.96; }
             .action-controls{ position:static; margin-top:12px; justify-content:flex-start; gap:8px }
-            .action-box{ padding:16px; width:100%; margin-left:auto; margin-right:auto; border-left:4px solid var(--accent-cyan) !important; border-right:none !important }
+            .action-box{ padding:16px; width:100%; max-width:100%; margin-left:auto; margin-right:auto; border-left:4px solid var(--accent-cyan) !important; border-right:none !important }
             .action-box[data-side="right"]{ border-left:4px solid var(--accent-cyan) !important; border-right:none !important; margin-left:auto; margin-right:auto }
             .prose-container h1{ font-size:1.75rem }
             .prose-container h2{ font-size:1.15rem }
@@ -117,6 +121,7 @@ export default function ProductPage() {
             .floating-panel{ position:relative; right:auto; bottom:auto; width:100%; margin-top:0.8rem; }
           }
           @media (max-width:480px){
+            .product-page > div.relative{ padding-left:10px; padding-right:10px; }
             .action-box{ padding:12px; margin-bottom:1.25rem }
             .prose-container .hero-title{ font-size:3.05rem; }
             .prose-container h1{ font-size:1.5rem }
