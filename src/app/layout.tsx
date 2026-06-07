@@ -10,8 +10,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Next.js with Tailwind CSS',
-  description: 'A boilerplate project with Next.js and Tailwind CSS',
+  title: 'qvs',
+  description: 'qvs',
   icons: {
     icon: [
       { url: '/favicon.ico', type: 'image/x-icon' }
@@ -31,8 +31,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.svg" />
-        <title>Quantum Vertex</title>
-        <meta name="description" content="Quantum Vertex — NextGen Task Manager" />
+        <title>qvs</title>
+        <meta name="description" content="qvs" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

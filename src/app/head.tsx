@@ -1,8 +1,8 @@
 export default function Head() {
   return (
     <>
-      <title>Quantum Vertex</title>
-      <meta name="description" content="Quantum Vertex — NextGen Task Manager" />
+      <title>qvs</title>
+      <meta name="description" content="qvs" />
 
       {/* Favicons (SVG primary; browsers may fallback to PNG/ICO if present) */}
       <link rel="icon" href="/favicon.svg" />

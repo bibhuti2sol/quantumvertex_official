@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import HomePageInteractive from "./components/HomePageInteractive";
 
 export const metadata: Metadata = {
-  title: "Quantum Vertex Solutions — Innovating Your Digital Future",
+  title: "qvs",
   description:
     "Quantum Vertex Solutions is Bangalore's premier IT partner delivering custom software development, cloud computing, cybersecurity, AI/ML, and digital transformation services.",
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Quantum Vertex Solutions" }],
   openGraph: {
-    title: "Quantum Vertex Solutions — Innovating Your Digital Future",
+    title: "qvs",
     description:
       "Transform your business with cutting-edge IT solutions. Expert software development, cloud computing, and digital transformation from Bangalore.",
     type: "website",
